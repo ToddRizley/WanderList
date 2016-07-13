@@ -21,9 +21,8 @@ class FlightsController < ApplicationController
   # end
 
   def new_trip
-    @flight = Flight.new
     @user = User.find(session[:user_id])
-    redirect_to user_path
+    binding.pry
   end
 
   def create_trip
@@ -36,7 +35,7 @@ class FlightsController < ApplicationController
   end
 
   def search_results
-    @flights = 
+    # @flights = 
   end
 
   def index
