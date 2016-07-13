@@ -7,11 +7,12 @@ Rails.application.routes.draw do
 
   # sessions
   get '/signin', to: 'sessions#new'
-  post '/sessions/create', to: 'sessions#create'
+  post '/sessions', to: 'sessions#create'
   delete '/signout', to: 'sessions#destroy'
+  #flights
+  post '/book_trip', to: 'flights#book_trip'
+
 
   resources :users, :flights
-
-
 
 end
