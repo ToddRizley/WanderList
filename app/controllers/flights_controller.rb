@@ -22,21 +22,24 @@ class FlightsController < ApplicationController
 
   def new_trip
     @user = User.find(session[:user_id])
-    binding.pry
   end
 
   def create_trip
-    @flight = Flight.find(flight_params)
-    @flight.departure_date = @user.departure
-    @flight.departure_airport = @user.city
-    @flight.save
+    @user = User.find(session[:user_id])
+    # @flight = Flight.find(flight_params)
+    # @flight.departure_date = @user.departure
+    # @flight.departure_airport = @user.city
+    # @flight.save
 
-    redirect_to search_results_path
+    # redirect_to search_results_path
   end
 
   def search_results
-    
-    binding.pry
+    @user = User.find(session[:user_id])
+    @user.budget = params["user"]["budget"]
+    @user.departure = params["user"]["departure"]
+    @user.return = params["user"]["return"]
+    @user.save 
   end
 
   def index
@@ -50,4 +53,5 @@ class FlightsController < ApplicationController
   def flight_params
     params.require(:flight)
   end
+
 end
