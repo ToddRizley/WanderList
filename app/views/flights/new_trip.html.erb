@@ -1,13 +1,13 @@
 <%= form_tag("/search_results", method: "get") do %>
 <p> What's your budget? </p>
 
-<p><%= text_field_tag :budget %></p>
-<p> Where are you flying from? </p>
 <p><%= text_field_tag 'user[budget]' %></p>
+<p> Where are you flying from? </p>
+<p><%= text_field_tag 'user[city]' %></p>
 <p> What's your departure date? </p>
-<%= text_field_tag :departure %>
+<%= text_field_tag 'user[departure]' %>
 <p> What's your return date? </p>
-<%= text_field_tag :return %> 
+<%= text_field_tag 'user[return]' %> 
 
 <%= button_to 'Find Flights', search_results_path %>
 <% end %>
