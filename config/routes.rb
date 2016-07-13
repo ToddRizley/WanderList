@@ -10,7 +10,8 @@ Rails.application.routes.draw do
   post '/sessions', to: 'sessions#create'
   delete '/signout', to: 'sessions#destroy'
   #flights
-  get '/book_trip', to: 'flights#book_trip'
+  post '/book_trip', to: 'flights#book_trip'
+
 
   resources :users, :flights
 
