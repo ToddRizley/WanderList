@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   post '/sessions', to: 'sessions#create'
   delete '/signout', to: 'sessions#destroy'
 
-  resources :users
+  resources :users, :flights
 
 
 
