@@ -5,12 +5,13 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.create(user_params) 
-    redirect_to '/user/#{user.id}'
+    @user = User.create(user_params)
+    binding.pry
+    redirect_to "/users/#{@user.id}"
   end
 
   def show
-    @user = User.find(user_params)
+    @user = User.find(params[:id])
     session[:user_id] = @user.id
   end
 
@@ -27,12 +28,7 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(
       :name, 
-      :password, 
-      :city_id, 
-      :budget, 
-      :departure, 
-      :return 
-    )
-
+      :password
+      )
   end
 end
