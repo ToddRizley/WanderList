@@ -7,4 +7,7 @@ class User < ApplicationRecord
   has_many :itineraries
   has_many :flights, through: :itineraries
 
+  def city=(city)
+    self.city = City.find(city)
+  end 
 end
