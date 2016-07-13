@@ -2,11 +2,11 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+
   end
 
   def create
     @user = User.create(user_params)
-    binding.pry
     redirect_to "/users/#{@user.id}"
   end
 
@@ -15,13 +15,13 @@ class UsersController < ApplicationController
     session[:user_id] = @user.id
   end
 
-
-
   def edit
   end
 
   def update
   end
+
+  
 
   private 
 

@@ -1,0 +1,15 @@
+<%= form_for @flight do |f| %>
+<%= f.label :airline %>
+<%= f.text_field :airline %><br>
+<%= f.label :flight_number %>
+<%= f.text_field :flight_number %> 
+<%= f.label :price %> 
+<%= f.number_field :price %> 
+
+<%= f.label :departure_airport_id %>
+<%= f.text_field :departure_airport_id %>
+<%= f.label :arrival_airport_id %>
+<%= f.text_field :arrival_airport_id %> 
+
+<%= f.submit 'Create Flight' %>
+<% end %>
