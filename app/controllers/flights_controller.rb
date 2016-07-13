@@ -31,6 +31,12 @@ class FlightsController < ApplicationController
     @flight.departure_date = @user.departure
     @flight.departure_airport = @user.city
     @flight.save
+
+    redirect_to search_results_path
+  end
+
+  def search_results
+    @flights = 
   end
 
   def index
