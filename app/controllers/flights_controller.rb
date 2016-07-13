@@ -5,9 +5,9 @@ class FlightsController < ApplicationController
   end
 
   def create
-    @flight = Flight.create(flight_params)
+    @flight = Flight.create(@flight[:id])
     binding.pry
-    redirect_to "/flights/#{@flight.id}"
+    redirect_to flight_path(@flight.id)
   end
 
   def show
@@ -22,6 +22,7 @@ class FlightsController < ApplicationController
 
   def book_trip
 
+    redirect_to users_path
   end
 
   def index
@@ -30,11 +31,12 @@ class FlightsController < ApplicationController
 
   
 
-  private 
+  # private 
 
-  def flight_params
-    params.require(:flight).permit(
+  # def flight_params
+  #   params.require(:flight).permit(
 
-      )
-  end
+
+  #     )
+  # end
 end
