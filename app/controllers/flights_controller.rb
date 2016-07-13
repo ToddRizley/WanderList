@@ -35,7 +35,8 @@ class FlightsController < ApplicationController
   end
 
   def search_results
-    # @flights = 
+    
+    binding.pry
   end
 
   def index
