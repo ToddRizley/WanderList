@@ -20,13 +20,17 @@ class FlightsController < ApplicationController
   # def update
   # end
 
-  def book_trip
+  def new_trip
     @flight = Flight.new
     @user = User.find(session[:user_id])
+    redirect_to user_path
+  end
+
+  def create_trip
+    @flight = Flight.find(flight_params)
     @flight.departure_date = @user.departure
     @flight.departure_airport = @user.city
     @flight.save
-    redirect_to user_path
   end
 
   def index
@@ -37,10 +41,7 @@ class FlightsController < ApplicationController
 
   private 
 
-  # def flight_params
-  #   params.require(:flight).permit(
-
-
-  #     )
-  # end
+  def flight_params
+    params.require(:flight)
+  end
 end
