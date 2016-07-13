@@ -1,0 +1,12 @@
+<%= form_for @flight do |f| %>
+<p> What's your budget? </p>
+<p><%= f.text_field_tag '@user[budget]' %></p>
+<p> Where are you flying from? </p>
+<p><%= f.text_field_tag '@user[][city]' %></p>
+<p> What's your departure date? </p>
+<%= f.text_field_tag '@user[departure]' %>
+<p> What's your return date? </p>
+<%= f.text_field_tag '@user[return]' %> 
+
+<%= f.submit 'Find Flights' %>
+<% end %>
