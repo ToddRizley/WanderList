@@ -24,15 +24,15 @@ class FlightsController < ApplicationController
     @user = User.find(session[:user_id])
   end
 
-  def create_trip
-    @user = User.find(session[:user_id])
-    # @flight = Flight.find(flight_params)
-    # @flight.departure_date = @user.departure
-    # @flight.departure_airport = @user.city
-    # @flight.save
+  # def create_trip
+  #   @user = User.find(session[:user_id])
+  #   # @flight = Flight.find(flight_params)
+  #   # @flight.departure_date = @user.departure
+  #   # @flight.departure_airport = @user.city
+  #   # @flight.save
 
-    # redirect_to search_results_path
-  end
+  #   # redirect_to search_results_path
+  # end
 
   def search_results
     @user = User.find(session[:user_id])
@@ -40,6 +40,7 @@ class FlightsController < ApplicationController
     @user.departure = params["user"]["departure"]
     @user.return = params["user"]["return"]
     @user.save 
+    ###needs @results to sort through all flight results
   end
 
   def index
