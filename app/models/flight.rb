@@ -3,9 +3,13 @@ class Flight < ApplicationRecord
   belongs_to :departure_airport, :class_name => "Airport"
   belongs_to :arrival_airport, :class_name => "Airport"
 
+ 
+
+
   # def find_flights_to
   #   Flight.where(price =< self.ticket_max).where(departure_airport = self.departure_airport).first(3)
   # end
+
 
   # def find_return_flights(airport)
   #   self.arrival_airport = Flight.find(departure_airport = airport)

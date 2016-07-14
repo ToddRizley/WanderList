@@ -35,13 +35,28 @@ class FlightsController < ApplicationController
   # end
 
   def search_results
-    @user = User.find(session[:user_id])
-    @user.budget = params["user"]["budget"]
-    @user.departure = params["user"]["departure"]
-    @user.return = params["user"]["return"]
-    @user.save 
-    ###needs @results to sort through all flight results
+
+
+    #user specified city
+    city = City.find_by(name: params["user"]["city"])
+    budget= params["user"]["budget"].to_f
+    # firstleg is an array of flights of all flighsts from specified city on specified date 
+    firstleg=city.departures_by_date(params["user"]["departure"])
+    secondleg=city.arrivals_by_date(params["user"]["return"])
+
+    #returns an array of flights that FIT ALL CRITERIA 
+    roundtripflight=firstleg.map do |flight1|
+      secondleg.map do |flight2|
+        if flight1.departure_airport.city == flight2.arrival_airport.city && ((flight1.price + flight2.price) <= budget)
+            [flight1, flight2]
+        end
+      end
+    end.compact
+
   end
+
+    
+
 
   def index
     @flights= Flight.all
