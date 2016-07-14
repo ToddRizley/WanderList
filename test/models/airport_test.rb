@@ -7,13 +7,18 @@ describe Airport do
     )
   }
   let!(:airport)  {
-  Airport.create(name: "LaGuardia", city: :new_york_city
+  Airport.create(name: "LaGuardia", 
+    city: :new_york_city
     )
 
   }
 
   it "it has a name" do
       expect(airport.name).to eq("LaGuardia")
+  end
+
+  it "it has a description" do
+      expect(airport.description).to eq("concrete bunghole where dreams are made up")
   end
 
   it "belongs to one city" do

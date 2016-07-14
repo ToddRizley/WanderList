@@ -2,11 +2,6 @@ require 'test_helper'
 
 describe City do
 
-  let!(:airport)  {
-  Airport.create(name: "LaGuardia", city: :new_york_city
-    )
-
-  }
 
   let!(:new_york_city) {City.create(
       :name => "New York City",
@@ -18,6 +13,14 @@ describe City do
       expect(city.name).to eq("New York City")
   end
 
-  it "belongs to one city" do
-    expect(airport.city.name).to eq("New York City")
+  context 'airports (and ' do 
+    let!(:airport)  {
+  Airport.create(name: "LaGuardia", city: :new_york_city
+    )
+  }
+  it 'has many airports' do
+    expect(city.airports).to include(:airport)
   end
+
+  ##has many users test will write when we eliminte usercities join table!
+end
