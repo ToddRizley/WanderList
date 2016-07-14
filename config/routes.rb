@@ -12,8 +12,10 @@ Rails.application.routes.draw do
   
   #flights
   get '/new_trip', to: 'flights#new_trip'
-  post '/flights', to: 'flights#create_trip'
+  get '/find_flights', to: 'flights#find_flights'
   get '/search_results', to: 'flights#search_results'
+  #get '/final_results', to: 'flights#'
+  # post '/flights', to: 'flights#create_trip'
 
 
   resources :users, :flights
