@@ -2,7 +2,7 @@
 <h2> Hey, <%= @user.name %> here are some options for you: </h2>
 
 <ul><% @flights.each_with_index do |flight, index| %>
-<li><%= "#{index}. Destination: #{flight.arrival_airport.name} Cost: $#{flight.total}" %></li>
+<li><%= "#{index}. Destination: #{flight.arrival_airport.name} Cost: $#{flight.total}" %><%= link_to "Save Flight", user_path %></li>
 <% end %></ul>
 
 </div>
