@@ -1,15 +1,20 @@
 class SessionsController < ApplicationController
 
   def new
-    @user = User.new
+    # @user = User.new
   end
 
   def create
-    user = User.find(params[:id])
-    if user.authenticate(params[:password])
-      session[:user_id] = user.id
-      redirect_to user_path(session[:user])
+    @user = User.find(session[:user_id])
+    user = User.find_by(name: params[:session][:username].downcase)
+    if user && user.authenticate(params[:session][:password])
+      session[:user_id] = @user.id
+      redirect_to user 
+    else 
+      flash.now[:danger] = 'Invalid username/password combination'
+      render 'new'
     end
+    
   end
 
   def search_results
