@@ -6,9 +6,9 @@ Rails.application.routes.draw do
 
 
   # sessions
-  get '/signin', to: 'sessions#new'
-  post '/signin', to: 'sessions#create'
-  delete '/signout', to: 'sessions#destroy'
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
+  delete '/logout', to: 'sessions#destroy'
   
   #flights
   get '/new_trip', to: 'flights#new_trip'

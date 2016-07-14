@@ -1,4 +1,12 @@
-<%= form_tag '/signin' do %>
-<%= collection_select :user, :id, User.all, :id, :name %>
-<%= submit_tag 'Sign In' %>
+<% provide(:title, "Log in") %>
+  <h1>Log in</h1>
+  <%= form_for(:session, url: login_path) do |f| %>
+  
+  <%= f.label :username %>
+  <%= f.text_field :username %>
+
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+  <%= submit_tag 'Log In' %>
+  <p>New user? <%= link_to "Sign up now!", new_user_path %></p>
 <% end %>
