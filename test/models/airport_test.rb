@@ -1,25 +1,27 @@
 require 'test_helper'
 
-Rspec.describe Airport, :type => :model do 
-  let(:city) {
-    City.create(
+describe Airport do
+  let(:new_york_city) {City.create(
       :name => "New York City",
       :description => "concrete bunghole where dreams are made up"
     )
   }
+  let!(:airport)  {
+  Airport.create(name: "LaGuardia", city: :new_york_city
+    )
 
-let(:airport) {
-  Airport.create(name: "LaGuardia", city_id: city.id)
+  }
 
-}
-
-  it "it is valid with a city_id and a name" do
-      expect(airport).to be_valid
+  it "it has a name" do
+      expect(airport.name).to eq("LaGuardia")
   end
 
   it "belongs to one city" do
-    expect(airport.city).to eq(city)
+    expect(airport.city.name).to eq("New York City")
   end
+
+  ##how can I test that an airport has departing flights and arriving flights? 
+  ## do we need this?
 
 
   ##insert test methods
