@@ -15,8 +15,11 @@ class User < ApplicationRecord
 
   # validate :return_after_departure
 
+  def alpha?
+    !!match(/^[[:alnum:]]+$/)
+  end
 
-  # def return_after_departure
+   #def return_after_departure
   #   if self.return < self.departure
   #     errors.add(:return, "must be after departure")
   #   end
