@@ -22,6 +22,7 @@ class FlightsController < ApplicationController
 
   def new_trip
     @user = User.find(session[:user_id])
+
   end
 
   # def create_trip
@@ -39,6 +40,7 @@ class FlightsController < ApplicationController
     @user.budget = params["user"]["budget"]
     @user.departure = params["user"]["departure"]
     @user.return = params["user"]["return"]
+    @user.city = params["user"]["city"]
     @user.save 
     ###needs @results to sort through all flight results
   end
