@@ -6,7 +6,14 @@ class UsersController < ApplicationController
 
   def create
     @user = User.create(user_params)
-    redirect_to "/users/#{@user.id}"
+    if @user.valid?
+      redirect_to "/users/#{@user.id}"
+    elsif @user.name == nil 
+      render new_user_path
+    elsif  !@user.name.alpha_num?
+
+  end
+
   end
 
   def show

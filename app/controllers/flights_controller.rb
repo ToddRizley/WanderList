@@ -36,12 +36,14 @@ class FlightsController < ApplicationController
   # end
 
   def search_results
+
     @user = User.find(session[:user_id])
-    @user.budget = params["user"]["budget"]
-    @user.departure = params["user"]["departure"]
-    @user.return = params["user"]["return"]
-    @user.city = params["user"]["city"]
-    @user.save 
+    # @user.budget = params["user"]["budget"]
+    # @user.departure = params["user"]["departure"]
+    # @user.return = params["user"]["return"]
+    # @user.city = params["user"]["city"]
+    # @user.save 
+    binding.pry
     ###needs @results to sort through all flight results
   end
 
