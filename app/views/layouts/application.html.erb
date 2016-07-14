@@ -3,21 +3,24 @@
   <head>
     <title>FlatironProject1</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
-  <div class="header">
-    <div class="center">
-      <p><a href="/">Home</a>
-      <a href="/users/new">Sign Up</a>
-      <a href="/signin">Sign In</a>
-      <a href="/new_trip">Book A Trip</a></p>
-    </div>
-
-    <%= yield %>
+    <div class="header">
+      <div class="center">
+        <p><a href="/">Home</a>
+            <% if logged_in? %>
+              <%= link_to "Profile", current_user %>
+              <%= link_to "Log out", logout_path, method: "delete" %>
+              <a href="/new_trip">Book A Trip</a>
+            <% else %>
+              <a href="/users/new">Sign Up</a>
+              <a href="/login">Sign In</a>
+            <% end %> 
+        </p>
+      </div>
+      <%= yield %>
     </div>
   </body>
 </html>
