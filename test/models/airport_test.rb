@@ -7,7 +7,8 @@ describe Airport do
     )
   }
   let!(:airport)  {
-  Airport.create(name: "LaGuardia", 
+  Airport.create(
+    name: "LaGuardia", 
     city: :new_york_city
     )
 
