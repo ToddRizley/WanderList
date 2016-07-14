@@ -13,9 +13,14 @@ class User < ApplicationRecord
 
   # validates :budget, numericality: { message: "Budget must be a number" }, numericality: { greater_than: 0}
 
-  # def city=(city)
-  #   self.city = City.find(city)
-  # end 
+  # validate :return_after_departure
 
-  ##include departures date validation and return validations
+
+  # def return_after_departure
+  #   if self.return < self.departure
+  #     errors.add(:return, "must be after departure")
+  #   end
+  # end
+
+ 
 end
