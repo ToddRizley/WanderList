@@ -19,3 +19,5 @@ class User < ApplicationRecord
 
   ##include departures date validation and return validations
 end
+
+# What are user cities?  Are they just cities that a user has been to?  If so, then I believe we can get this info from a flight and don't need a new table for this.
