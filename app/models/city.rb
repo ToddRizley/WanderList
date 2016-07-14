@@ -14,7 +14,7 @@ class City < ApplicationRecord
   #returns all departing flights with the same date as inputted 
   def departures_by_date (date)
     departures.map do |flight|
-      if flight.departure_date.to_s==date 
+      if flight.departure_date==Date.strptime(date, '%m/%d/%Y' )
         flight
       end
     end.compact
@@ -22,7 +22,7 @@ class City < ApplicationRecord
 
   def arrivals_by_date (date)
     arrivals.map do |flight|
-      if flight.arrival_date.to_s==date
+      if flight.arrival_date==Date.strptime(date, '%m/%d/%Y' )
         flight
       end
     end.compact
