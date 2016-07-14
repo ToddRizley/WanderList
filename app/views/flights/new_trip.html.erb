@@ -1,13 +1,19 @@
 <%= form_tag("/search_results", method: "get") do %>
+<div class='center'
 <p> What's your budget? </p>
 
 <p><%= text_field_tag 'user[budget]' %></p>
 <p> Where are you flying from? </p>
 <p><%= text_field_tag 'user[city]'  %></p>
 <p> What's your departure date? </p>
-<%= text_field_tag 'user[departure]' %>
+
+<p><input type="text" data-provide='datepicker' name='user[departure]' ></p>
 <p> What's your return date? </p>
-<%= text_field_tag 'user[return]' %> 
+
+<p><input type="text" data-provide='datepicker' name='user[return]' ></p>
 
 <%= button_to 'Find Flights', search_results_path %>
 <% end %>
+</div>
+
+
