@@ -31,10 +31,15 @@ class FlightsController < ApplicationController
             [flight1, flight2]
           end
         end
-      end.compact
-      @roundtripflight
-      #redirect_to search_results_path(@roundtripflight)
-      render :search_results
+      end
+    end.compact.flatten(1)
+    @roundtripflight
+    @destination_cities=@roundtripflight.map do |pair|
+      pair.first.arrival_city
+    end
+    #redirect_to search_resusts_path(@roundtripflight)
+    render :search_results
+    #render "search_results", roundtripflight: @roundtripflight
     #<%= render "fancy_title", title: @item.title %>
     else
       flash.now[:notice] = "Invalid budget/dates. Please enter in correct info."

@@ -1,14 +1,19 @@
 <div class="center">
-
-<% @roundtripflight.each do |bigflightarray| %>
-  <% bigflightarray.each do |flightarray| %> 
-    <% flightarray.each do |flight| %> 
-      <li><%= "Flight Number: #{flight.flight_number}" %></li> 
-      <li><%= "Departure Date: #{flight.departure_date}" %></li> 
-      <li><%= "Arrival Date: #{flight.arrival_date}" %></li> <br>
+  
+  <% @destination_cities.each_with_index { |destination_city, index| %>
+    <h2> <%= destination_city.name %> </h2>
+    <p> <%= destination_city.description %> </p>
+    
+    <% @roundtripflight[index].each do |flight| %>
+       <li><%= "Flight Number: #{flight.flight_number}" %></li> 
+       <li><%= "Departure Airport: #{flight.departure_airport.name}" %></li> 
+       <li><%= "Departure Date: #{flight.departure_date}" %></li> 
+       <li><%= "Arrival Airport: #{flight.arrival_airport.name}" %></li> 
+       <li><%= "Arrival Date: #{flight.arrival_date}" %></li> 
+       <li><%= "Flight Price: $#{flight.price.round}" %></li> <br>
     <% end %> 
-  <% end %>
-<% end %>
+  <% }  %>
+
 
 </div> 
 
