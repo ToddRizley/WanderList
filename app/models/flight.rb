@@ -11,6 +11,7 @@ class Flight < ApplicationRecord
   def arrival_city
     self.arrival_airport.city 
   end
+  
   #price for a round trip ticket
   def self.round_trip_price(*flights)
      flights.inject(0.0) do |rt_total,each_flight|
@@ -18,40 +19,24 @@ class Flight < ApplicationRecord
      end
   end
 
-  #returns an array of flights that FIT ALL CRITERIA -- WORKING PROGRESS
-  # def matching_flights(*flights)
-  #   roundtrip = flights.first.map do |flight1|
+  #make sure flights flying to and from the same city
+  def self.cities_match?(flight1,flight2)
+    flight1.departure_city == flight2.arrival_city
+  end
 
-  # end
+  # 1) does the departing city of first leg match arrival city of second leg?
+  # 2) does the total of first and second leg fit within the users budget?
+  def self.all_criteria_match(flight1,flight2,budget)
+    cities_match?(flight1,flight2) && (round_trip_price(flight1,flight2) <= budget)
+  end
 
-
-
-
-
-
-
-
-  # def find_flights_to
-  #   Flight.where(price =< self.ticket_max).where(departure_airport = self.departure_airport).first(3)
-  # end
-
-
-  # def find_return_flights(airport)
-  #   self.arrival_airport = Flight.find(departure_airport = airport)
-  # end
-
-  # def combine_flights(flights_1, flights_2)
-  #   flights_1.each_with_index do |flight1, index|
-  #     flights_2.each do |flight2|
-  #       price = flight1.price.to_i + flight2.price+to_i
-  #       "#{index}. Destination : #{flight_1.arrival_airport} Total Cost : $#{price} "
-  #     end
-  #   end
-  # end
-
-
-  # def ticket_max(budget)
-  #   budget/2
-  # end
+  # returns array of flights that FIT ALL CRITERIA 
+  def self.match_flights(first_leg,second_leg,budget)
+    first_leg.map do |flight1|
+      second_leg.map do |flight2|
+       [flight1, flight2] if all_criteria_match(flight1,flight2,budget)
+      end
+    end.compact.flatten(1)
+  end
 
 end
