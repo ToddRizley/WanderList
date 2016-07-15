@@ -1,5 +1,6 @@
 <%= form_tag("/find_flights", method: "get") do %>
-<div class='center'
+<div class='center'>
+
 <p> What's your budget? </p>
 
 <p><%= text_field_tag 'user[budget]' %></p>
@@ -14,6 +15,7 @@
 
 <%= button_to 'Find Flights'%>
 <% end %>
+<p><%= flash[:notice] %></p>
 </div>
 
 
