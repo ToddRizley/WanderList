@@ -24,21 +24,19 @@ class Flight < ApplicationRecord
     flight1.departure_city == flight2.arrival_city
   end
 
-  # returns an array of flights that FIT ALL CRITERIA -- WORKING PROGRESS
+  # 1) does the departing city of first leg match arrival city of second leg?
+  # 2) does the total of first and second leg fit within the users budget?
+  def self.all_criteria_match(flight1,flight2,budget)
+    cities_match?(flight1,flight2) && (round_trip_price(flight1,flight2) <= budget)
+  end
+
+  # returns array of flights that FIT ALL CRITERIA 
   def self.match_flights(first_leg,second_leg,budget)
     first_leg.map do |flight1|
       second_leg.map do |flight2|
        [flight1, flight2] if all_criteria_match(flight1,flight2,budget)
       end
-    end.compact
-  end
-
-  #checks if two seperate flights leave from
-  #and return back to the same city
-  #and if the combined total of the flights fall 
-  #within budget constraints provided by input 
-  def self.all_criteria_match(flight1,flight2,budget)
-    cities_match?(flight1,flight2) && (round_trip_price(flight1,flight2) <= budget)
+    end.compact.flatten(1)
   end
 
 end
