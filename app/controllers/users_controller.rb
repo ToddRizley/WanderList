@@ -11,8 +11,7 @@ class UsersController < ApplicationController
     else
       flash[:message] = @user.errors.full_messages.each_with_object([]) do |error, result|
         result << error
-      end
-      binding.pry
+    end
       render new_user_path
     end
   end
