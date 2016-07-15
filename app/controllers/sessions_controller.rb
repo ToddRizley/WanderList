@@ -13,7 +13,6 @@ class SessionsController < ApplicationController
       flash.now[:notice] = 'Invalid username/password combination'
       render 'new'
     end
-    
   end
 
   def search_results
