@@ -5,7 +5,6 @@ class SessionsController < ApplicationController
   end
 
   def create
-    #@user = User.find(session[:user_id])
     user = User.find_by(name: params[:session][:username].downcase)
     if user && user.authenticate(params[:session][:password])
       login user 
@@ -14,7 +13,6 @@ class SessionsController < ApplicationController
       flash.now[:notice] = 'Invalid username/password combination'
       render 'new'
     end
-    
   end
 
   def search_results
