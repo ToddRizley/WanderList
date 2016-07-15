@@ -1,27 +1,32 @@
-require 'test_helper'
+require 'rails_helper'
 
 describe City do
   let(:laguardia)  {
-  Airport.create(name: "LaGuardia", city: :new_york_city
+  Airport.create(name: "LaGuardia", city: new_york_city
     )
   }
 
   let!(:new_york_city) {City.create(
       :name => "New York City",
       :description => "concrete bunghole where dreams are made up",
-      airports: [:laguardia]
     )
   }
 
   it "it has a name" do
-      expect(city.name).to eq("New York City")
+      expect(new_york_city.name).to eq("New York City")
   end
 
-  
+   it "has a description" do
+      expect(new_york_city.description).to eq("concrete bunghole where dreams are made up")
+  end
+
+
 
   it 'has many airports' do
-    expect(city.airports).to include(:laguardia)
+    expect(new_york_city.airports).to include(laguardia)
   end
+
+end
 
 
 
