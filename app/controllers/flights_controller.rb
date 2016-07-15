@@ -22,14 +22,13 @@ class FlightsController < ApplicationController
     #returns an array of flights that FIT ALL CRITERIA 
     @roundtripflight=firstleg.map do |flight1|
       secondleg.map do |flight2|
-        if flight1.departure_airport.city == flight2.arrival_airport.city && ((flight1.price + flight2.price) <= budget)
+        if flight1.departure_city == flight2.arrival_city && 
+           round_trip_price(flight1,flight2) <= budget)
             [flight1, flight2]
         end
       end
     end.compact
     @roundtripflight
-    
-    
     #redirect_to search_results_path(@roundtripflight)
     render "search_results", roundtripflight: @roundtripflight
     #<%= render "fancy_title", title: @item.title %>
