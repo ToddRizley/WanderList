@@ -31,7 +31,8 @@ class FlightsController < ApplicationController
     
     
     #redirect_to search_results_path(@roundtripflight)
-    render "search_results", roundtripflight: @roundtripflight
+    render :search_results
+    #render "search_results", roundtripflight: @roundtripflight
     #<%= render "fancy_title", title: @item.title %>
   end
 
