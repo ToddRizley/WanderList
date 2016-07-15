@@ -17,6 +17,7 @@ class FlightsController < ApplicationController
     @user.budget= params["user"]["budget"].to_f
     @user.departure = params["user"]["departure"].to_s
     @user.return = params["user"]["return"].to_s
+        ##mass assigment fix? need to clean up!
 
     if @user.budget_valid? && @user.dates_valid?
       # firstleg is an array of flights of all flighsts from specified city on specified date 
