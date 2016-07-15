@@ -9,10 +9,10 @@ class Flight < ApplicationRecord
   end
   #flight arrival city
   def arrival_city
-    self.departure_airport.city 
+    self.arrival_airport.city 
   end
   #price for a round trip ticket
-  def round_trip_price(*flights)
+  def self.round_trip_price(*flights)
      flights.inject(0.0) do |rt_total,each_flight|
       rt_total+= each_flight.price 
      end
