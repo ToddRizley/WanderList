@@ -14,24 +14,30 @@ class FlightsController < ApplicationController
     #user specified city
     city = City.find_by(name: params["user"]["city"])
     budget= params["user"]["budget"].to_f
-
-    # firstleg is an array of flights of all flighsts from specified city on specified date 
+    # firstleg is an array of flights of all flights from specified city on specified date 
     firstleg=city.departures_by_date(params["user"]["departure"].to_s)
     secondleg=city.arrivals_by_date(params["user"]["return"].to_s)
-
     #returns an array of flights that FIT ALL CRITERIA 
-    @roundtripflight=firstleg.map do |flight1|
-      secondleg.map do |flight2|
-        if flight1.departure_city == flight2.arrival_city && 
-           round_trip_price(flight1,flight2) <= budget)
-            [flight1, flight2]
-        end
-      end
-    end.compact
-    @roundtripflight
-    #redirect_to search_results_path(@roundtripflight)
+    @roundtripflight = Flight.match_flights(firstleg,secondleg,budget)
     render "search_results", roundtripflight: @roundtripflight
-    #<%= render "fancy_title", title: @item.title %>
+    
+
+
+
+
+
+
+
+    # @roundtripflight=firstleg.map do |flight1|
+    #   secondleg.map do |flight2|
+    #     if flight1.departure_city == flight2.arrival_city && 
+    #        Flight.round_trip_price(flight1,flight2) <= budget)
+    #         [flight1, flight2]
+    #     end
+    #   end
+    # end.compact
+    # @roundtripflight
+    #redirect_to search_results_path(@roundtripflight)
   end
 
 
