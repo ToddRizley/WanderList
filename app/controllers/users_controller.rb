@@ -8,12 +8,13 @@ class UsersController < ApplicationController
     @user = User.create(user_params)
     if @user.valid?
       redirect_to "/users/#{@user.id}"
-    elsif @user.name == nil 
+    else
+      flash[:message] = @user.errors.full_messages.each_with_object([]) do |error, result|
+        result << error
+      end
+      #binding.pry
       render new_user_path
-    elsif  !@user.name.alpha_num?
-
-  end
-
+    end
   end
 
   def show

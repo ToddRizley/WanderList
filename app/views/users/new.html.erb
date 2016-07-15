@@ -6,4 +6,11 @@
 <%= f.label :password %>
 <%= f.password_field :password %><br>
 <%= f.submit 'Create User' %>
+<% if flash[:message] %>
+<ul>
+<% flash[:message].each do |error| %>
+  <li><%= error %></li>
+<% end %>
+</ul>
+<% end %>
 <% end %>
