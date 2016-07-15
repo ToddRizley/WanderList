@@ -18,11 +18,21 @@ class User < ApplicationRecord
     end
   end
 
-  #def return_after_departure
-  #   if self.return < self.departure
-  #     errors.add(:return, "must be after departure")
-  #   end
-  # end
+  def dates_valid?
+    dates_not_nil && return_after_departure && dates_in_future
+  end
+
+  def return_after_departure
+     self.return > self.departure
+  end
+
+  def dates_in_future
+    (self.return > Time.now.strftime("%d/%m/%Y")) && (self.departure > Time.now.strftime("%d/%m/%Y"))
+  end
+
+  def dates_not_nil
+    (self.return != nil) && (self.departure != nil)
+  end
 
   def budget_valid?
     budget_not_zero && budget_positive && budget_a_number ? true : false
@@ -31,7 +41,6 @@ class User < ApplicationRecord
   def budget_not_zero
     self.budget != 0 && self.budget != nil
   end
-
 
   def budget_positive
     self.budget > 0 
