@@ -23,7 +23,7 @@ class FlightsController < ApplicationController
     @roundtripflight=firstleg.map do |flight1|
       secondleg.map do |flight2|
         if flight1.departure_city == flight2.arrival_city && 
-           round_trip_price(flight1,flight2) <= budget)
+           (round_trip_price(flight1,flight2) <= budget)
             [flight1, flight2]
         end
       end
