@@ -2,8 +2,33 @@ class Flight < ApplicationRecord
   has_many :itineraries
   belongs_to :departure_airport, :class_name => "Airport"
   belongs_to :arrival_airport, :class_name => "Airport"
+  
+  #flight departure city
+  def departure_city
+    self.departure_airport.city 
+  end
+  #flight arrival city
+  def arrival_city
+    self.arrival_airport.city 
+  end
+  #price for a round trip ticket
+  def self.round_trip_price(*flights)
+     flights.inject(0.0) do |rt_total,each_flight|
+      rt_total+= each_flight.price 
+     end
+  end
 
- 
+  #returns an array of flights that FIT ALL CRITERIA -- WORKING PROGRESS
+  # def matching_flights(*flights)
+  #   roundtrip = flights.first.map do |flight1|
+
+  # end
+
+
+
+
+
+
 
 
   # def find_flights_to
