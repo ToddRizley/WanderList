@@ -15,7 +15,6 @@ class FlightsController < ApplicationController
     @user = User.find(session[:user_id])
     city = City.find_by(name: params["user"]["city"])
     @user.budget= params["user"]["budget"].to_f
-    binding.pry
     if @user.budget_valid?
       # firstleg is an array of flights of all flighsts from specified city on specified date 
       firstleg=city.departures_by_date(params["user"]["departure"].to_s)
@@ -36,7 +35,7 @@ class FlightsController < ApplicationController
     #<%= render "fancy_title", title: @item.title %>
     else
       flash.now[:notice] = "Invalid budget"
-      render new_trip_path
+      render "new_trip"
     end
   end
 
