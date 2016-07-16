@@ -2,12 +2,9 @@ class FlightsController < ApplicationController
 
   def new_trip
     @user = User.find(session[:user_id])
-
   end
 
   def create_trip
-
-
   end
 
   def find_flights
