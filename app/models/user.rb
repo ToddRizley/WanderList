@@ -27,7 +27,7 @@ class User < ApplicationRecord
   end
 
   def dates_in_future
-    (self.return > Time.now.strftime("%d/%m/%Y")) && (self.departure > Time.now.strftime("%d/%m/%Y"))
+    (self.return.to_s > Time.now.strftime("%d/%m/%Y")) && (self.departure.to_s > Time.now.strftime("%d/%m/%Y"))
   end
 
   def dates_not_nil
