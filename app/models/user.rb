@@ -5,7 +5,8 @@ class User < ApplicationRecord
   has_many :user_cities
   has_many :cities, through: :user_cities
   has_many :itineraries
-  has_many :flights, through: :itineraries
+  has_many :departing_flights, :class_name => "Flight", through: :itineraries
+  has_many :return_flights, :class_name => "Flight", through: :itineraries 
 
   validates :name, presence: { message: "must exist" }, uniqueness: { message: "already exists"}
 
