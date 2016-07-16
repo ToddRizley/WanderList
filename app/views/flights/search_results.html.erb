@@ -1,19 +1,26 @@
+<!-- Didn't include a submit button yet-->
+<!-- inspect element through the browser-->
+<!-- you will find the matching flights stored in the 'id' as a long string-->
+<!-- that happens because on line 10, 'flight_package'-->
+<!-- which stores each pair of flights that match our query-->
+<!--and the value aspect of radio is a string of two flight objects-->
+<!-- good luck and lmk if you have questions!! -->
+
 <div class="center">
-  
-  <% @destination_cities.each_with_index { |destination_city, index| %>
-    <h2> <%= destination_city.name %> </h2>
-    <p> <%= destination_city.description %> </p>
-    
-    <% @roundtripflight[index].each do |flight| %>
-       <li><%= "Flight Number: #{flight.flight_number}" %></li> 
-       <li><%= "Departure Airport: #{flight.departure_airport.name}" %></li> 
-       <li><%= "Departure Date: #{flight.departure_date}" %></li> 
-       <li><%= "Arrival Airport: #{flight.arrival_airport.name}" %></li> 
-       <li><%= "Arrival Date: #{flight.arrival_date}" %></li> 
-       <li><%= "Flight Price: $#{flight.price.round}" %></li> <br>
+  <%= form_tag({controller:"itineraries", action: "create"}, method: "post") do %>
+    <% @roundtripflight.each do |flight_package| %>
+     <br>
+      <p>
+      <%= radio_button_tag(:flight_info, flight_package) %>
+      <%= label_tag(:flights, "choose this flight") %>
+      <% flight_package.each_with_index do |flight, index| %> 
+      <h2> <%= "flight #{index+1}" %> </h2> 
+        <p>Destination: <%= flight.arrival_city.name %> </p>
+        <p> Date: <%= flight.arrival_date %> </p>
+        <p> Flight Number: <%= flight.flight_number %> </p>
+        <p> Price: <%= "$#{flight.price.round}" %> </p>
+        <%end%>
     <% end %> 
-  <% }  %>
-
-
+  <% end %>
 </div> 
 

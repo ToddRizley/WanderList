@@ -17,6 +17,10 @@
 
 html, body { background: #fdf6ee; }
 .center {  text-align: center; }
+.container {
+  border: 2em; 
+  border-color: black;
+}
 
 
 h1 { font-family: 'Noto Sans', sans-serif; }

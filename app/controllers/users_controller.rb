@@ -27,6 +27,11 @@ class UsersController < ApplicationController
   def update
   end
 
+  def flights
+    @user = User.find(params[:id])
+    session[:user_id] = @user.id
+  end
+
   
 
   private 
