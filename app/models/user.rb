@@ -50,6 +50,5 @@ class User < ApplicationRecord
     self.budget.is_a?(Integer) || self.budget.is_a?(Float)
   end
 
- 
 
 end

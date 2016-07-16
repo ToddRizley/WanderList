@@ -3,7 +3,7 @@ require 'rails_helper'
 
 describe Flight do
 
-   let(:laguardia)  {
+  let(:laguardia)  {
     Airport.create(name: "LaGuardia"
     )
   }
@@ -51,9 +51,6 @@ describe Flight do
   it "has an arrival airport" do
     expect(new_flight.arrival_airport.name).to eq("Miami International")
   end
-
-  ## arrival airport and departure airport must be diff names
-
   
 end
 
