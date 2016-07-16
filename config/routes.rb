@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   
   resources :users, :flights, :itineraries
-  post 
+  #user's flights route
+  get '/users/:id/flights', to: 'users#flights'
   #root
   root to: 'sessions#home'
 

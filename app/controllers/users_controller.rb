@@ -32,8 +32,6 @@ class UsersController < ApplicationController
     session[:user_id] = @user.id
   end
 
-  
-
   private 
 
   def user_params
