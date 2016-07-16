@@ -8,10 +8,10 @@ module Services
     ###date format is yyyy-MM-dd
     ##might need separate method for return date?
     ##one way flights
-    def departure_search(market, base_city, departure_date)
+    def departure_search(market, currency, locale, base_city, departure_date)
     end
     ##one way flights
-    def return_search(market, destination_city, base_city, return_date)
+    def return_search(market, currency, locale, destination_city, base_city, return_date)
     end
   end
 end
