@@ -10,6 +10,7 @@ def make_seeds
   make_cities 
   make_airports
   make_flights 
+  make_itineraries
 end
 
 
@@ -80,5 +81,11 @@ end
      # Flight.create( airline: "Delta", flight_number: "giob", departure_date: '2016-02-12', arrival_date: '2016-02-12', price: 55, departure_airport_id: 3,arrival_airport_id: 4)
   end 
 
+  def make_itineraries
+    #Tom's flight from San Fran to LGA
+    Itinerary.create(user_id: 1, departing_flight_id: 1, return_flight_id: 2)
+    #Tom's flight from LGA to San Fran
+    
+  end
 
 make_seeds

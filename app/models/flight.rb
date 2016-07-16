@@ -1,5 +1,6 @@
 class Flight < ApplicationRecord
-  has_many :itineraries
+  has_many :departure_tickets, :class_name => "Itinerary", :foreign_key => "departing_flight_id"
+  has_many :return_tickets, :class_name => "Itinerary", :foreign_key => "return_flight_id"
   belongs_to :departure_airport, :class_name => "Airport"
   belongs_to :arrival_airport, :class_name => "Airport"
   
