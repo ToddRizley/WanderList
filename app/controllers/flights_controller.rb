@@ -10,7 +10,6 @@ class FlightsController < ApplicationController
     city = City.find_by(name: params["user"]["city"])
 
     #persisted data to user model
-    #mass assigment fix? need to clean up!
     @user.budget= params["user"]["budget"].to_f
     @user.departure = params["user"]["departure"].to_s
     @user.return = params["user"]["return"].to_s
