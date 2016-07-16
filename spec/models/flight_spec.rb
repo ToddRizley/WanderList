@@ -1,10 +1,16 @@
-require 'test_helper'
+require 'rails_helper'
 
 
 describe Flight do
 
-  let(:laugardia) {Airport.create(name: "LaGuardia")}
-  let(:miami_international) {Airport.create (name: "Miami International")}
+   let(:laguardia)  {
+    Airport.create(name: "LaGuardia"
+    )
+  }
+  let(:miami_international)  {
+    Airport.create(name: "Miami International"
+    )
+  }
 
 
   let!(:new_flight) {Flight.create(
@@ -13,8 +19,8 @@ describe Flight do
       :departure_date => "2016-10-10",
       :arrival_date => "2016-11-11",
       :price => 500,
-      :departure_airport => :laguardia,
-      :arrival_airport => :miami_international
+      :departure_airport => laguardia,
+      :arrival_airport => miami_international
     )
   }
 
@@ -27,11 +33,11 @@ describe Flight do
   end
 
   it "has a departure date" do
-    expect(new_flight.departure_date).to eq("2016-10-10")
+    expect(new_flight.departure_date.to_s).to eq("2016-10-10")
   end
 
   it "has an arrival date" do
-    expect(new_flight.arrival_date).to eq("2016-10-11")
+    expect(new_flight.arrival_date.to_s).to eq("2016-11-11")
   end
 
   it "has a price" do
