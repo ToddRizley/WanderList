@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   def create
     @user = User.create(user_params)
     if @user.valid?
+      session[:user_id] = @user.id
       redirect_to "/users/#{@user.id}"
     else
       flash[:message] = @user.errors.full_messages.each_with_object([]) do |error, result|
@@ -18,18 +19,11 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    session[:user_id] = @user.id
   end
 
-  def edit
-  end
-
-  def update
-  end
 
   def flights
     @user = User.find(params[:id])
-    session[:user_id] = @user.id
   end
 
   private 

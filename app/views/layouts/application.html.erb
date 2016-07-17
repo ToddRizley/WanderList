@@ -11,7 +11,7 @@
       <div class="center">
         <p><a href="/">Home</a>
             <% if logged_in? %>
-              <%= link_to "Profile", current_user %>
+              <%= link_to "Profile", "/users/#{@current_user.id}/flights" %>
               <%= link_to "Log out", logout_path, method: "delete" %>
               <a href="/new_trip">Book A Trip</a>
               <p><i><%= "#{@current_user.name} is logged into WanderList" %></i></p>
