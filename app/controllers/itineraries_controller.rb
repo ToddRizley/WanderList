@@ -16,22 +16,22 @@ class ItinerariesController < ApplicationController
     #find current user
     @user = User.find(session[:user_id])
     #creates itinerary
-    Itinerary.create(user_id: @user.id, departing_flight_id: dep_flight.id, return_flight_id: ret_flight.id)
+    @itinerary = Itinerary.create(user_id: @user.id, departing_flight_id: dep_flight.id, return_flight_id: ret_flight.id)
     redirect_to "/users/#{@user.id}/flights"
   end
 
-  def show
+  # def show
    
-  end
+  # end
 
-  def edit
-  end
+  # def edit
+  # end
 
-  def update
+  # def update
 
-  end
+  # end
 
   
-  private 
+  # private 
 
 end

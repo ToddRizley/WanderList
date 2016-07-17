@@ -1,1 +1,11 @@
-<h1>  </h1>
+<h1> <%= @user.name %>'s WanderList Trips </h1>
+<h3> Saved Trips <h3>
+<ul>
+<% @user.itineraries.each_with_index do |package, index| %>
+  <li><p><%= "#{index+1}. From: #{package.departing_flight.departure_airport.city.name} To: #{package.return_flight.departure_airport.city.name}" %></p>
+    <% total = package.departing_flight.price.to_i + package.return_flight.price.to_i %>
+    <p>Price: $<%= "#{total}" %></p>
+    <p>Dates: <%= package.departing_flight.departure_date %> To <%= package.return_flight.arrival_date %><p><br>
+  </li>
+<% end %>
+ </ul>
