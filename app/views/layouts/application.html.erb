@@ -14,10 +14,10 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/">Home</a></li>
             <% if logged_in? %>
-              <li><a href="/users/#{@current_user.id}/flights"></a> My Flights</li> 
-              <li><%= link_to "Log out", logout_path,method: "delete" %></li> 
+              <li><%=link_to "My Flights", "/users/#{@current_user.id}/flights"%></li> 
+              <li><%= link_to "Log out", logout_path, method: "delete" %></li> 
               <li><a href="/new_trip">Book A Trip</a></li>
-              <p><i><%= "#{@current_user.name} is logged into WanderList" %></i></p>
+              <i><%= "#{@current_user.name} is logged into WanderList" %></i>
             <% else %>
               <li><a href="/users/new">Sign Up</a> </li>
               <li><a href="/login">Sign In</a></li>
