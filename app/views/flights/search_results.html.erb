@@ -3,18 +3,18 @@
     <div class="col-md-6 col-md-offset-3">
       <%= form_tag({controller:"itineraries", action: "create"}, method: "post") do %>
           <% @roundtripflight.each_with_index do |flight_package, index| %>
-          <h1> <%= "Package #{index+1}" %> </h1> 
-            <% total = flight_package[0].price.to_i + flight_package[1].price.to_i %>
+          <h1> <%= "Package #{index+1}" %>  </h1>
             <% featuredimage= Unsplash::Photo.search(flight_package[0].arrival_city.name, page = 1, per_page = 1) %>
-            <img src= <%= featuredimage[0].urls["small"] + "/download" %> >  
-                  <p>Destination: <%= flight_package[0].arrival_city.name %> </p>
-                  <p> Date: <%= flight_package[0].arrival_date %> </p>
-                  <p> Flight Number: <%= flight_package[0].flight_number %> </p>
-                  <p> Price : <%= "$ #{total}" %></p>
-                  <label class= "radio-inline" >
-                  <%= label_tag(:flights, "Choose Flight") %>
-                  <%= radio_button_tag(:flight_ids, flight_package.map{|flight| flight.id}) %>
-                  </label>
+            <img src= <%= featuredimage[0].urls["small"] + "/download" %> > 
+            <p>Destination: <%= flight_package[0].arrival_city.name %> </p>
+            <p> Date: <%= flight_package[0].arrival_date %> </p>
+            <p> Flight Number: <%= flight_package[0].flight_number %> </p>
+            <% total = flight_package[0].price.to_i + flight_package[1].price.to_i %>
+            <p> Price : <%= "$ #{total}" %></p>
+            <label class= "radio-inline" >
+            <%= label_tag(:flights, "Choose Flight") %>
+            <%= radio_button_tag(:flight_ids, flight_package.map{|flight| flight.id}) %>
+            </label>
           <%end%>
           <br>
           <br>
