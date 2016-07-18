@@ -4,19 +4,21 @@
  
   </head>
 
-  <body>
-    <div class="center">
-    <h1>WanderList</h1>
-    <h2>Your One Stop Trip Planner</h2>
-    <% if !logged_in? %> 
+  <body id="landingpage">
+    <div id="container"> 
       <div class="center">
-        <p> <%= link_to "Sign In", login_path, class: "btn btn-lg btn-primary" %> 
-            <%= link_to "Sign Up", new_user_path, class: "btn btn-lg btn-primary"%> </p>
+      <h1>WanderList</h1>
+      <h2>Your One Stop Trip Planner</h2>
+      <% if !logged_in? %> 
+        <div class="center">
+          <p> <%= link_to "Sign In", login_path, class: "btn btn-lg btn-primary" %> 
+              <%= link_to "Sign Up", new_user_path, class: "btn btn-lg btn-primary"%> </p>
+        </div>
+      <% else %> 
+         <div class="center">
+          <p> <%= link_to "Find flights now!", new_trip_path, class: "btn btn-lg btn-primary"%> </p> </div>
+      <% end %> 
       </div>
-    <% else %> 
-       <div class="center">
-        <p> <%= link_to "Find flights now!", new_trip_path, class: "btn btn-lg btn-primary"%> </p> </div>
-    <% end %> 
     </div>
   </body>
 
