@@ -14,23 +14,18 @@ class FlightsController < ApplicationController
     @user.departure = params["user"]["departure"].to_s
     @user.return = params["user"]["return"].to_s
 
-    # if @user.budget_valid? && @user.dates_valid?
+    if @user.budget_valid? && @user.dates_valid?
       # array of flights from input specified home city & selected departure date 
       firstleg=city.departures_by_date(params["user"]["departure"].to_s)
       # array of return flights to input specified home city & return date 
       secondleg=city.arrivals_by_date(params["user"]["return"].to_s)
       #returns an array of flights that FIT ALL CRITERIA 
       @roundtripflight = Flight.match_flights(firstleg,secondleg,@user.budget)
-      #returns array of destination cities 
-      # @destination_cities=@roundtripflight.map do |pair|
-      #   pair.first.arrival_city
-      # end
       #displays results 
       @itinerary = Itinerary.new 
       render :search_results
-    # else
-    #   flash.now[:notice] = "Invalid budget/dates. Please enter in correct info."
-    #   render "new_trip"
+    else
+      flash.now[:notice] = "Invalid budget/dates. Please enter in correct info."
     # end
   end
 
