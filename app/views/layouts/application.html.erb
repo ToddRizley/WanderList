@@ -2,25 +2,31 @@
 <html>
   <head>
     <title>FlatironProject1</title>
-    <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= csrf_meta_tags %>
   </head>
   <body>
-    <div class="header">
-      <div class="center">
-        <p><a href="/">Home</a>
+    <header class ="navbar navbar-fixed-top navbar-invese">
+      <div class="container">
+      <%= link_to "WanderList", '/', id: "logo" %>
+        <nav>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/">Home</a></li>
             <% if logged_in? %>
-              <%= link_to "Profile", "/users/#{@current_user.id}/flights" %>
-              <%= link_to "Log out", logout_path, method: "delete" %>
-              <a href="/new_trip">Book A Trip</a>
-              <p><i><%= "#{@current_user.name} is logged into WanderList" %></i></p>
+              <li><%=link_to "My Flights", "/users/#{@current_user.id}/flights"%></li> 
+              <li><%= link_to "Log out", logout_path, method: "delete" %></li> 
+              <li><a href="/new_trip">Book A Trip</a></li>
+              <i><%= "#{@current_user.name} is logged into WanderList" %></i>
             <% else %>
-              <a href="/users/new">Sign Up</a>
-              <a href="/login">Sign In</a>
-            <% end %> 
-        </p>
-      </div>
+              <li><a href="/users/new">Sign Up</a> </li>
+              <li><a href="/login">Sign In</a></li>
+            <% end %>  
+          </ul>
+        </nav> 
+      </div> 
+    </header>
+    <div class="container">
       <%= yield %>
     </div>
   </body>
