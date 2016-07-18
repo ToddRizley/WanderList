@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   # end
 
   def flights
-    @user = User.find(@user.id)
+    @user = User.find(session[:user_id])
   end
 
   private 
