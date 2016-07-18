@@ -67,7 +67,7 @@ end
      Flight.create( airline: "American", flight_number: "efgh", departure_date: '2016-03-19', arrival_date: '2016-03-19', price: 200, departure_airport_id: 2, arrival_airport_id: 3 )
      
      # JFK to SanFran 
-      Flight.create( airline: "American", flight_number: "kkkl", departure_date: '2016-03-19', arrival_date: '2016-03-19', price: 300, departure_airport_id: 1, arrival_airport_id: 3 )
+    Flight.create( airline: "American", flight_number: "kkkl", departure_date: '2016-03-19', arrival_date: '2016-03-19', price: 300, departure_airport_id: 1, arrival_airport_id: 3 )
 
      Flight.create( airline: "American", flight_number: "ijkl", departure_date: '2016-05-06', arrival_date: '2016-05-06', price: 175, departure_airport_id: 1,arrival_airport_id: 4)
      Flight.create( airline: "American", flight_number: "lmno", departure_date: '2016-05-11', arrival_date: '2016-05-11', price: 75, departure_airport_id: 4,arrival_airport_id: 1)
