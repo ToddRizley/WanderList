@@ -9,16 +9,14 @@
             <p> Flight Number: <%= flight_package[0].flight_number %> </p>
             <% total = flight_package[0].price.to_i + flight_package[1].price.to_i %>
             <p> Price : <%= "$ #{total}" %></p>
-            <label class= "radio-inline" >
-            <%= label_tag(:flights, "Choose Flight") %>
-            <%= radio_button_tag(:flight_ids, flight_package.map{|flight| flight.id}) %>
-            </label>
+           <input id="departing_id" name="departing_id" value= <%= "#{flight_package[0].id}" %> type="hidden" />
+           <input id="return_id" name="return_id" value= <%= "#{flight_package[1].id}" %> type="hidden" />
+          <%= submit_tag ("Save flight")%>
           <%end%>
           <br>
-          <br>
-        <%= submit_tag ("Save flight")%> 
+          <br> 
       <% end %>
       </div> 
-        
+
 
 
