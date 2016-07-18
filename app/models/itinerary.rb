@@ -3,7 +3,6 @@ class Itinerary < ApplicationRecord
   belongs_to :return_flight, :class_name => "Flight"
   belongs_to :user
 
-
   def total_price
     self.departing_flight.price.to_i + self.return_flight.price.to_i
   end
