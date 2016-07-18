@@ -22,5 +22,6 @@ Rails.application.routes.draw do
     config.application_secret = "014ddb705223d735620764902dfd82b47d479aaf3a066a8e805132561ab16067"
     config.application_redirect_uri = "urn:ietf:wg:oauth:2.0:oob"
   end
+  OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
 end

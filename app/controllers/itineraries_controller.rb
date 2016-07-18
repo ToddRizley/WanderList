@@ -6,7 +6,7 @@ class ItinerariesController < ApplicationController
 
   def create
     #array of chosen flight ids 
-    flight_ids = params["flight_ids"].split(" ")
+    flight_ids = params["flight_ids"].join(" ")
     #find departing flight by flight_id
     dep_flight_id = flight_ids[0].to_i
     dep_flight = Flight.find(dep_flight_id)
