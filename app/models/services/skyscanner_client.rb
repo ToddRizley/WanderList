@@ -9,7 +9,7 @@ module Services
     ##might need separate method for return date?
     ##one way flight there
     def departure_search(market, currency, locale, base_city, destination_city, departure_date)
-      self.class.get(BASE_URL, {query: {market: market, currency: currency, locale: locale, originPlace: base_city, destinationPlace: destination_city, outboundPartialDate: departure_date})
+      self.class.get(BASE_URL, {query: {market: market, currency: currency, locale: locale, originPlace: base_city, destinationPlace: destination_city}})
     end
     ##one way flight back home
     def return_search(market, currency, locale, destination_city, base_city, return_date)

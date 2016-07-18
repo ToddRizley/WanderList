@@ -27,6 +27,10 @@ class FlightsController < ApplicationController
     # else
     #   flash.now[:notice] = "Invalid budget/dates. Please enter in correct info."
     # end
+
+    
+
+    
   end
 
 end
