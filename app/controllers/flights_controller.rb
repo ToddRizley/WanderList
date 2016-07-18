@@ -34,14 +34,14 @@ class FlightsController < ApplicationController
     # end
   end
 
-  def index
-    @flights= Flight.all
-  end
+  # def index
+  #   @flights= Flight.all
+  # end
 
-  private 
+  # private 
 
-  def flight_params
-    params.require(:flight)
-  end
+  # def flight_params
+  #   params.require(:flight)
+  # end
 
 end
