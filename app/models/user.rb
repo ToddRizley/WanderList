@@ -9,10 +9,9 @@ class User < ApplicationRecord
   has_many :return_flights, :class_name => "Flight", through: :itineraries 
 
   validates :name, presence: { message: "must exist" }, uniqueness: { message: "already exists"}
-
   validates :password, length: { minimum: 4 }
   validate :name_is_alpha_num?
-
+  
   def name_is_alpha_num?
     if !self.name.match(/^[[:alnum:]]+$/)
       errors.add(:name, "may only be alphanumeric characters")
@@ -50,6 +49,5 @@ class User < ApplicationRecord
   def budget_a_number
     self.budget.is_a?(Integer) || self.budget.is_a?(Float)
   end
-
 
 end
