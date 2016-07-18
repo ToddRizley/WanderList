@@ -2,9 +2,9 @@
 <h3> Saved Trips <h3>
 <ul>
 <% @user.itineraries.each_with_index do |package, index| %>
-  <li><p><%= "#{index+1}. From: #{package.departure_city} To: #{package.arrival_city}" %></p>
-    <p>Price: $<%= "#{package.total_price}" %></p>
-    <p>Dates: <%= package.departure_date %> To <%= package.return_date %><p><br>
+  <li><h2><%= "#{index+1}. From: #{package.departure_city} To: #{package.arrival_city}" %></h2>
+    <h2>Price: $<%= "#{package.total_price}" %></h2>
+    <h2>Dates: <%= package.departure_date %> To <%= package.return_date %><h2><br>
   </li>
 <% end %>
  </ul>
