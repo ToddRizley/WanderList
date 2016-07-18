@@ -27,7 +27,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 3em;
+  font-size: 2em;
   letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
@@ -53,7 +53,7 @@ p {
   float: left;
   margin-right: 10px;
   font-size: 1.7em;
-  color: black;
+  color: white;
   text-transform: uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
@@ -80,4 +80,13 @@ input, textarea, select, .uneditable-input {
   height: auto;
   margin-bottom: 15px;
   @include box_sizing;
+}
+
+label {
+    background:#aaa;
+    color:#fff;
+    border-radius:8px;   
+    padding:.3em;
+    margin:.75em;
+    cursor:pointer;
 }

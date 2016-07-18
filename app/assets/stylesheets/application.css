@@ -14,10 +14,18 @@
  *= require_self
  */
 
+ body {
+ background: url('ocean.jpg') no-repeat center center fixed;
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   -o-background-size: cover;
+   background-size: cover;
+}
+
 
 /* html, body { background: #fdf6ee; } */
 
-html, body { background: #fdf6ee; }
+/*html, body { background: #fdf6ee; }*/
 
 /*body#landingpage { background: #C1666B; }*/
 

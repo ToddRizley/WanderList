@@ -21,10 +21,6 @@ class UsersController < ApplicationController
     @user = User.find(@user.id)
   end
 
-  # def index
-  #   @users = User.all 
-  # end
-
   def flights
     @user = User.find(session[:user_id])
   end
