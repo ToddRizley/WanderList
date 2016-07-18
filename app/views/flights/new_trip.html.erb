@@ -1,21 +1,25 @@
 <%= form_tag("/find_flights", method: "get") do %>
 <div class='center'>
+<h1>Your adventure awaits...</h1>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <p> What's your budget? </p>
 
-<p> What's your budget? </p>
+      <p><%= text_field_tag 'user[budget]' %></p>
+      <p> Where are you flying from? </p>
+      <p><%= text_field_tag 'user[city]'  %></p>
+      <p> What's your departure date? </p>
 
-<p><%= text_field_tag 'user[budget]' %></p>
-<p> Where are you flying from? </p>
-<p><%= text_field_tag 'user[city]'  %></p>
-<p> What's your departure date? </p>
+      <p><input type="text" data-provide='datepicker' name='user[departure]' ></p>
+      <p> What's your return date? </p>
 
-<p><input type="text" data-provide='datepicker' name='user[departure]' ></p>
-<p> What's your return date? </p>
+      <p><input type="text" data-provide='datepicker' name='user[return]' ></p>
 
-<p><input type="text" data-provide='datepicker' name='user[return]' ></p>
-
-<%= button_to 'Find Flights'%>
-<% end %>
-<p><%= flash[:notice] %></p>
+      <%= submit_tag("Find Flights")%>
+      <% end %>
+      <p><%= flash[:notice] %></p>
+    </div>
+  </div>
 </div>
 
 

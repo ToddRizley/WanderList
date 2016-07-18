@@ -1,19 +1,22 @@
 <div class="center">
-  <%= form_tag({controller:"itineraries", action: "create"}, method: "post") do %>
-    <% @roundtripflight.each do |flight_package| %>
-     <br>
-      <p>
-      <%= radio_button_tag(:flight_ids, flight_package.map{|flight| flight.id}) %>
-      <%= label_tag(:flights, "Choose Flight") %>
-      <% flight_package.each_with_index do |flight, index| %> 
-      <h2> <%= "flight #{index+1}" %> </h2> 
-        <p>Destination: <%= flight.arrival_city.name %> </p>
-        <p> Date: <%= flight.arrival_date %> </p>
-        <p> Flight Number: <%= flight.flight_number %> </p>
-        <p> Price: <%= "$#{flight.price.round}" %> </p>
-        <%end%>
-    <% end %> 
-  <%= submit_tag ("Save flight")%> 
-  <% end %>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= form_tag({controller:"itineraries", action: "create"}, method: "post") do %>
+        <% @roundtripflight.each do |flight_package| %>
+         <br>
+          <%= radio_button_tag(:flight_ids, flight_package.map{|flight| flight.id}) %>
+          <%= label_tag(:flights, "Choose Flight") %>
+          <% flight_package.each_with_index do |flight, index| %> 
+            <h2> <%= "flight #{index+1}" %> </h2> 
+            <p>Destination: <%= flight.arrival_city.name %> </p>
+            <p> Date: <%= flight.arrival_date %> </p>
+            <p> Flight Number: <%= flight.flight_number %> </p>
+            <p> Price: <%= "$#{flight.price.round}" %> </p>
+          <%end%>
+        <% end %> 
+        <%= submit_tag ("Save flight")%> 
+      <% end %>
+    </div>
+  </div>
 </div> 
 
