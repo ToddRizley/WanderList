@@ -20,17 +20,43 @@ textarea {
   }
 }
 
+.whitebox{
+  opacity: 0.9; 
+  background-color: #EFEADE;
+  border-radius: 15px;
+  margin-bottom: 2em;
+}
+
+.whitebox h1 {
+  
+  color: black;
+}
+
+body > div > div > form > div > div > div > input[type="submit"]:nth-child(11){
+  width: 25%;
+}
+
 /* typography */
 
 h1, h2, h3, h4, h5, h6 {
+  padding-top: 1em;
   line-height: 1;
 }
+
+body > header > div > nav > ul > p > i {
+  color: white;
+  font-size: .8em;
+
+}
+
+
 
 h1 {
   font-size: 2em;
   letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
+  color: white;
 }
 
 h2 {
@@ -39,13 +65,37 @@ h2 {
   margin-bottom: 30px;
   text-align: center;
   font-weight: normal;
-  color: #777;
+  color: white;
+}
+
+h3 {
+  color: white;
 }
 
 p {
   font-size: 1.1em;
   line-height: 1.7em;
+  font-weight: bold;
 }
+
+.p1 {
+  line-height: normal;
+  font-size: .7em;
+  margin-left: 5.0em;
+  color: black;
+  padding-bottom: 25px;
+  padding-top: 10px;
+}
+
+body > div > div > form > div > div > div > div {
+  padding-left: 5.5em;
+}
+
+body > div > div > form > div > div > div > input[type="submit"]:nth-child(6) {
+  width: 75%;
+    margin-left: 5em;
+}
+
 
 /* header */
 
@@ -84,14 +134,14 @@ input, textarea, select, .uneditable-input {
 }
 
 label {
-    background:#aaa;
-    color:#fff;
-    border-radius:10px;   
-    padding:.3em;
-    margin:.75em;
-    cursor:pointer;
+  color: white;
 }
 
 img {
   border-radius: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 22px;
+
 }
