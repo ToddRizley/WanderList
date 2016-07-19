@@ -14,7 +14,7 @@ class FlightsController < ApplicationController
     @user.departure = params["user"]["departure"].to_s
     @user.return = params["user"]["return"].to_s
 
-    # if @user.budget_valid? && @user.dates_valid?
+     # if @user.budget_valid? && @user.dates_valid?
       # array of flights from input specified home city & selected departure date 
       firstleg=city.departures_by_date(params["user"]["departure"].to_s)
       # array of return flights to input specified home city & return date 

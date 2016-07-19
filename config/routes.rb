@@ -17,8 +17,8 @@ Rails.application.routes.draw do
   get '/find_flights', to: 'flights#find_flights'
 
   Unsplash.configure do |config|    
-    config.application_id     = "cb864bfcb650da1259ce50c690dc6f341bca0ff7730fa510ac6805c93a5ba7a6"    
-    config.application_secret = "014ddb705223d735620764902dfd82b47d479aaf3a066a8e805132561ab16067"
+    config.application_id  = "cb745cf75c3f1100f19c014d72745326c88906c7bb797f33e984e2aee6b8e7ff"    
+    config.application_secret = "f3ad79e350549f91c1a97c97cf52e6fcc80874b7e5d98027c01ff8b788d4af0d"
     config.application_redirect_uri = "urn:ietf:wg:oauth:2.0:oob"
   end
  
