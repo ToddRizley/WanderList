@@ -14,6 +14,8 @@ class FlightsController < ApplicationController
     @user.departure = params["user"]["departure"].to_s
     @user.return = params["user"]["return"].to_s
 
+    Services::FlightAdapter.new.get_departures("NYC", "USA", "2016-07-23","2016-07-25")
+
     # if @user.budget_valid? && @user.dates_valid?
       # array of flights from input specified home city & selected departure date 
       firstleg=city.departures_by_date(params["user"]["departure"].to_s)

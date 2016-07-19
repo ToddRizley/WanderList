@@ -1,19 +1,17 @@
 module Services
   class SkyscannerClient
     include HTTParty
+    
+    #city to country
 
-    BASE_URL = "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/{market}/{currency}/{locale}/{originPlace}/{destinationPlace}/{outboundPartialDate}/{inboundPartialDate}?apiKey=to534927521486964955146079279037"
+              #http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-GB/NYC/US/2016-07-23/2016-07-25?apiKey=ch933373782109026034162897393201
+    BASE_URL = "http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/{originCity}/{destinationCountry}/{outboundPartialDate}/{inboundPartialDate}?apiKey=ch933373782109026034162897393201"
 
-    ##http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/GB/GBP/en-GB/LON/anywhere/anytime/anytime?apiKey=to534927521486964955146079279037
-    ###date format is yyyy-MM-dd
-    ##might need separate method for return date?
-    ##one way flight there
-    def departure_search(market, currency, locale, base_city, destination_city, departure_date)
-      self.class.get(BASE_URL, {query: {market: market, currency: currency, locale: locale, originPlace: base_city, destinationPlace: destination_city}})
+    def flight_search(originCity, destinationCountry, outboundPartialDate, inboundPartialDate)
+      binding.pry
+
+      self.class.get(BASE_URL, {query: { originCity: originCity, destinationCountry: destinationCountry, outboundPartialDate: outboundPartialDate, inboundPartialDate: inboundPartialDate }})
     end
-    ##one way flight back home
-    def return_search(market, currency, locale, destination_city, base_city, return_date)
-      self.class.get(BASE_URL, {query: {market: market, currency: currency, locale: locale, base_city: destination_city, destinationPlace: base_city, outboundPartialDate: return_date})
-    end
+    
   end
 end
