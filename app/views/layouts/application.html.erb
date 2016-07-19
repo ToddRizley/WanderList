@@ -7,7 +7,7 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <header class ="navbar navbar-fixed-top navbar-inverse" style="background-color: #C0C0C0; ">
+    <header class ="navbar navbar-fixed-top navbar-inverse" style="background-color: black; ">
       <div class="container">
       <%= link_to "WanderList", '/', id: "logo" %>
         <nav>
@@ -17,7 +17,7 @@
               <li><%=link_to "My Flights", "/users/#{@current_user.id}/flights"%></li> 
               <li><%= link_to "Log out", logout_path, method: "delete" %></li> 
               <li><a href="/new_trip">Book A Trip</a></li>
-              <i><%= "#{@current_user.name} is logged into WanderList" %></i>
+              <p><i><%= "#{@current_user.name} is logged into WanderList" %></i></p>
             <% else %>
               <li><a href="/users/new">Sign Up</a> </li>
               <li><a href="/login">Sign In</a></li>
