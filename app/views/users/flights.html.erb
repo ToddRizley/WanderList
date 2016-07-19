@@ -1,10 +1,21 @@
 <h1> <%= @user.name %>'s WanderList Trips </h1>
 <h3> Saved Trips <h3>
-<ul>
-<% @user.itineraries.each_with_index do |package, index| %>
-  <li><h2><%= "#{index+1}. From: #{package.departure_city} To: #{package.arrival_city}" %></h2>
-    <h2>Price: $<%= "#{package.total_price}" %></h2>
-    <h2>Dates: <%= package.departure_date %> To <%= package.return_date %><h2><br>
-  </li>
+<div class= "container-fluid">
+ <div class="row">
+<% @user.itineraries.each do |package| %>
+      <div class="col-md-6">
+        <div class="whitebox">
+           <% featuredimage= Unsplash::Photo.search(package.arrival_city, page = 1, per_page = 1) %>
+            <img src= <%= featuredimage[0].urls["small"] + "/download" %> >
+            <div class= "p1">
+              From: <%= package.departure_city %> <br>
+              Departure Date: <%= package.departure_date %><br>
+              To: <%= package.arrival_city %><br>
+              Return Date: <%=package.return_date %><br>
+              Price: $<%= package.total_price %><br>
+            </div>
+          </div>
+        </div>
 <% end %>
- </ul>
+</div>
+ </div>
