@@ -51,3 +51,5 @@ class User < ApplicationRecord
   end
 
 end
+
+# What are user cities?  Are they just cities that a user has been to?  If so, then I believe we can get this info from a flight and don't need a new table for this.
