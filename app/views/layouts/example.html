@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FlatironPresentsExample</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div id="profile">
+      <div class="email"> <%=@student.address%> </div>
+      <div class="bio"> <%=@student.bio%></div>
+      <p class="para"> The meaning of life is 42! </p>
+      <img src = "app/assets/images/pic.jpg" alt= "the_pic" height="42" width= "42">
+    </div>
+  </body>
+</html>
