@@ -18,4 +18,4 @@ All of the data gathering is coded in the relevant file in controllers.
 
 The respective models use Ruby to create new instances for each itinerary created.
 
-The application is currently querying through seeded dummy data. Our mission is to eventually use an active API to query live flight data. 
+The application is currently querying through seeded dummy data. Our mission is to eventually use Flight Scanner's API to query live flight data. 
