@@ -1,24 +1,21 @@
-# README
+Contributors:
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Emanuel Aharonoff - https://github.com/eaharonoff
 
-Things you may want to cover:
+Todd Rizley - https://github.com/ToddRizley
 
-* Ruby version
+Chap-Long Lau - https://github.com/chaplonglau
 
-* System dependencies
+Purpose: Search for all the places you can travel. Provide a budget and travel dates and find your next travel destination. 
 
-* Configuration
+Technologies used: Ruby, Ruby on Rails 
 
-* Database creation
+Access: Fork/clone the repo, run 'Rails s' in the command line and open 'http://localhost:3000/' in your browser
 
-* Database initialization
+Information Sources:
 
-* How to run the test suite
+All of the data gathering is coded in the relevant file in controllers.
 
-* Services (job queues, cache servers, search engines, etc.)
+The respective models use Ruby to create new instances for each itinerary created.
 
-* Deployment instructions
-
-* ...
+The application is currently querying through seeded dummy data. Our mission is to eventually use Flight Scanner's API to query live flight data. 

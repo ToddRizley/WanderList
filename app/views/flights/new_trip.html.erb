@@ -17,7 +17,9 @@
 
       <%= submit_tag("Find Flights")%>
       <% end %>
-      <p><%= flash[:notice] %></p>
+      <div id="error-message">
+        <p><%= flash[:notice] %></p>
+      </div>
     </div>
   </div>
 </div>
