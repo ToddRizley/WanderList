@@ -1,5 +1,5 @@
 class FlightsController < ApplicationController
-
+ ###before action  private method find user
   def new_trip
     @user = User.find(session[:user_id])
   end
