@@ -38,7 +38,7 @@ class FlightsController < ApplicationController
     #parse for flights that fall within the user's budget, limit to 10 
     quotes_within_budget = sorted_quotes.select{|quote| quote['MinPrice'] < @user.budget}.slice(0..5)
     #match placeids and carrier ids from API output
-    @parsed_quotes = sorted_quotes.each do |quote|
+    @parsed_quotes = quotes_within_budget.each do |quote|
       places.each do |place|
         #find the name of the outboundleg's origin city through OriginId
         if quote["OutboundLeg"]["OriginId"] == place["PlaceId"]
