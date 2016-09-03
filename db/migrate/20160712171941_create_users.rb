@@ -5,9 +5,6 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.integer :budget
       t.date :departure
       t.date :return
-      t.integer :city_id
-      t.integer :type_id
-
       t.timestamps
     end
   end

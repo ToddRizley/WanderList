@@ -40,4 +40,6 @@ class Flight < ApplicationRecord
     end.compact.flatten(1)
   end
 
+  
+
 end
