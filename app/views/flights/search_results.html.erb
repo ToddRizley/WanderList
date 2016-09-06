@@ -7,10 +7,14 @@
               <h1> <%= "Package #{index+1}" %>  </h1>
                 <div class= "p2">
                 Destination: <%= flight_package["OutboundLeg"]["DestinationCity"] %> <br>
-                Departure Date: <%= flight_package["OutboundLeg"]["DepartureDate"]%> <br>
+                Departure Date: <%= flight_package["OutboundLeg"]["DepartureDate"].to_date%> <br>
+                <% if flight_package["OutboundLeg"]["Carriers"][0] %>
                 Departure Flight Carrier: <%= flight_package["OutboundLeg"]["Carriers"][0] %> <br>
-                Return Date: <%= flight_package["InboundLeg"]["DepartureDate"] %><br>
+                <% end %>
+                Return Date: <%= flight_package["InboundLeg"]["DepartureDate"].to_date%><br>
+                <% if flight_package["InboundLeg"]["Carriers"][0] %>
                 Return Flight Carrier: <%= flight_package["InboundLeg"]["Carriers"][0] %><br>
+                <% end %>
                 Price : <%=  flight_package["MinPrice"]%>
                 </div>
                <input id="quote_id" name="quote_id" value= <%= "#{flight_package["QuoteId"]}" %> type="hidden" />
@@ -20,8 +24,6 @@
       <%end%>
     </div>
     <br>
-    <br> 
+    <br>
   <% end %>
   </div>
-
-
