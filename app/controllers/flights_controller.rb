@@ -14,14 +14,15 @@ class FlightsController < ApplicationController
     @user.budget= params["user"]["budget"].to_f
     @user.departure = params["user"]["departure"].to_s
     @user.return = params["user"]["return"].to_s
-   
-    #find Skyscanner code for city input 
-    city = params['user']['city']
+
+    #find Skyscanner code for city input
+
+    city = params['user']['city'].split(" ").join("%20")
     base_city_url = 'http://partners.api.skyscanner.net/apiservices/autosuggest/v1.0/US/USD/en-US?query='
     api_key = 'apiKey=em955043112889172537423239168314'
     city_code_response = HTTParty.get(base_city_url+city+'&'+api_key)
     sky_scanner_city_code = city_code_response['Places'][0]['PlaceId']
-    
+
     #convert date inputs into format for Skyscanner API
     date_dep = params['user']["departure"].split('/')
     date_adapt_dep =  [date_dep[2],date_dep[0],date_dep[1]].join("-")
@@ -35,8 +36,8 @@ class FlightsController < ApplicationController
     carriers = all_quotes['Carriers']
     places = all_quotes['Places']
     sorted_quotes = all_quotes['Quotes'].sort_by{ |t| t["MinPrice"] }
-    #parse for flights that fall within the user's budget, limit to 10 
-    quotes_within_budget = sorted_quotes.select{|quote| quote['MinPrice'] < @user.budget}.slice(0..5)
+    #parse for flights that fall within the user's budget, limit to 10
+    quotes_within_budget = sorted_quotes.select{|quote| quote['MinPrice'] <= @user.budget}.slice(0..5)
     #match placeids and carrier ids from API output
     @parsed_quotes = quotes_within_budget.each do |quote|
       places.each do |place|
@@ -67,14 +68,14 @@ class FlightsController < ApplicationController
       carriers.each do |carrier|
         quote["OutboundLeg"]["CarrierIds"].each do |car|
           if car == carrier["CarrierId"]
-            quote["OutboundLeg"]["Carriers"] ||= [] 
+            quote["OutboundLeg"]["Carriers"] ||= []
             quote["OutboundLeg"]["Carriers"] << carrier["Name"]
           end
         end
 
         quote["InboundLeg"]["CarrierIds"].each do |car|
           if  car  == carrier["CarrierId"]
-            quote["InboundLeg"]["Carriers"] ||= [] 
+            quote["InboundLeg"]["Carriers"] ||= []
             quote["InboundLeg"]["Carriers"] << carrier["Name"]
           end
         end
@@ -86,7 +87,7 @@ class FlightsController < ApplicationController
      # array of return flights to input specified home city & return date
      #  secondleg=city.arrivals_by_date(params["user"]["return"].to_s)
      # returns an array of flights that FIT ALL CRITERIA
-     #  @roundtripflight = Flight.match_flights(firstleg,secondleg,@user.budget)  
+     #  @roundtripflight = Flight.match_flights(firstleg,secondleg,@user.budget)
      # displays results
      #   @itinerary = Itinerary.new
     render :search_results
