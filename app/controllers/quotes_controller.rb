@@ -16,7 +16,6 @@ class QuotesController < ApplicationController
     @user.return = params["user"]["return"].to_s
 
     #find Skyscanner code for city input
-
     city = params['user']['city'].split(" ").join("%20")
     base_city_url = 'http://partners.api.skyscanner.net/apiservices/autosuggest/v1.0/US/USD/en-US?query='
     api_key = 'apiKey=em955043112889172537423239168314'
@@ -36,37 +35,74 @@ class QuotesController < ApplicationController
     carriers = all_quotes['Carriers']
     places = all_quotes['Places']
     sorted_quotes = all_quotes['Quotes'].sort_by{ |t| t["MinPrice"] }
-    #parse for flights that fall within the user's budget, limit to 10
+    #parse for flights that fall within the user's budget, limit to 6
     quotes_within_budget = sorted_quotes.select{|quote| quote['MinPrice'] <= @user.budget}.slice(0..5)
     #match placeids and carrier ids from API output
     @parsed_quotes = quotes_within_budget.each do |quote|
     ####so what we want to do here is create a hash with all the place info, a hash with the airline info, and airport info
-
-      places.each do |place|
+      if Location.find_by(city_ref: quote["OutboundLeg"]["OriginId"])
+        location = Location.find_by(city_ref: quote["OutboundLeg"]["OriginId"])
+        quote["OutboundLeg"]["OriginCity"] = location.city_name
+        quote["OutboundLeg"]["OriginCountry"] = location.country_name
+      else
+        places.each do |place|
         #find the name of the outboundleg's origin city through OriginId
-        if quote["OutboundLeg"]["OriginId"] == place["PlaceId"]
-          quote["OutboundLeg"]["OriginCity"] = place["CityName"]
-          quote["OutboundLeg"]["OriginAirport"] = place["Name"]
-        end
-        #find the name of the inboundleg's origin city (ie:the destination) through OriginId
-        if quote["InboundLeg"]["OriginId"] == place["PlaceId"]
-          quote["InboundLeg"]["OriginCity"] = place["CityName"]
-          quote["InboundLeg"]["OriginAirport"] = place["Name"]
-          quote["InboundLeg"]["Country"] = place["CountryName"]
-        end
-        #find the name of the outboundleg's destination city  through OriginId
-        if quote["OutboundLeg"]["DestinationId"] == place["PlaceId"]
-          quote["OutboundLeg"]["DestinationCity"] = place["CityName"]
-          quote["OutboundLeg"]["DestinationAirport"] = place["Name"]
-          quote["OutboundLeg"]["Country"] = place["CountryName"]
-        end
-        #find the name of the inboundleg's destination city  through OriginId
-        if quote["InboundLeg"]["DestinationId"] == place["PlaceId"]
-          quote["InboundLeg"]["DestinationCity"] = place["CityName"]
-          quote["InboundLeg"]["DestinationAirport"] = place["Name"]
+          if quote["OutboundLeg"]["OriginId"] == place["PlaceId"]
+            location = Location.create(city_ref: place["PlaceId"], city_name: place["CityName"], country_name: place["CountryName"])
+            airport = Airport.find_or_create_by(name: place["Name"], location_id: location.id)
+            quote["OutboundLeg"]["OriginCity"] = location.city_name
+            quote["OutboundLeg"]["OriginAirport"] = airport.name
+            quote["OutboundLeg"]["OriginCountry"] = location.country_name 
+          end
         end
       end
 
+      if Location.find_by(city_ref: quote["OutboundLeg"]["DestinationId"])
+        location = Location.find_by(city_ref: quote["OutboundLeg"]["DestinationId"])
+        quote["OutboundLeg"]["DestinationCity"] = location.city_name
+        quote["OutboundLeg"]["DestinationCountry"] = location.country_name
+      else
+        places.each do |place|
+        #find the name of the outboundleg's origin city through OriginId
+          if quote["OutboundLeg"]["DestinationId"] == place["PlaceId"]
+            location = Location.create(city_ref: place["PlaceId"], city_name: place["CityName"], country_name: place["CountryName"])
+            airport = Airport.find_or_create_by(name: place["Name"], location_id: location.id)
+            quote["OutboundLeg"]["DestinationCity"] = location.city_name
+            quote["OutboundLeg"]["DestinationAirport"] = airport.name 
+            quote["OutboundLeg"]["DestinationCountry"] = location.country_name
+          end
+        end
+      end
+
+      if Location.find_by(city_ref: quote["InboundLeg"]["OriginId"])
+        location = Location.find_by(city_ref: quote["InboundLeg"]["OriginId"])
+        quote["InboundLeg"]["OriginCity"] = location.city_name
+      else
+        places.each do |place|
+        #find the name of the outboundleg's origin city through OriginId
+          if quote["InboundLeg"]["OriginId"] == place["PlaceId"]
+            location = Location.create(city_ref: place["PlaceId"], city_name: place["CityName"])
+            airport = Airport.find_or_create_by(name: place["Name"], location_id: location.id)
+            quote["InboundLeg"]["OriginCity"] = location.city_name
+            quote["InboundLeg"]["OriginAirport"] = airport.name 
+          end
+        end
+      end
+
+      if Location.find_by(city_ref: quote["InboundLeg"]["DestinationId"])
+        location = Location.find_by(city_ref: quote["InboundLeg"]["DestinationId"])
+        quote["InboundLeg"]["DestinationCity"] = location.city_name
+      else
+        places.each do |place|
+        #find the name of the outboundleg's origin city through OriginId
+          if quote["InboundLeg"]["DestinationId"] == place["PlaceId"]
+            location = Location.create(city_ref: place["PlaceId"], city_name: place["CityName"])
+            airport = Airport.find_or_create_by(name: place["Name"], location_id: location.id)
+            quote["InboundLeg"]["DestinationCity"] = location.city_name
+            quote["InboundLeg"]["DestinationAirport"] = airport.name 
+          end
+        end
+      end
       #find the carriers for the quote's flights
       carriers.each do |carrier|
         quote["OutboundLeg"]["CarrierIds"].each do |car|

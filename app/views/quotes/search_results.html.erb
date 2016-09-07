@@ -6,7 +6,7 @@
             <div class="whitebox">
               <h1> <%= "Package #{index+1}" %>  </h1>
                 <div class= "p2">
-                Destination: <%= flight_package["OutboundLeg"]["DestinationCity"]%>, <%= flight_package["OutboundLeg"]["Country"] %> <br>
+                Destination: <%= flight_package["OutboundLeg"]["DestinationCity"]%>, <%= flight_package["OutboundLeg"]["DestinationCountry"] %> <br>
                 Departure Date: <%= flight_package["OutboundLeg"]["DepartureDate"].to_date%> <br>
                 <% if flight_package["OutboundLeg"]["Carriers"][0] %>
                 Departure Flight Carrier: <%= flight_package["OutboundLeg"]["Carriers"][0] %> <br>
