@@ -40,6 +40,8 @@ class FlightsController < ApplicationController
     quotes_within_budget = sorted_quotes.select{|quote| quote['MinPrice'] <= @user.budget}.slice(0..5)
     #match placeids and carrier ids from API output
     @parsed_quotes = quotes_within_budget.each do |quote|
+    ####so what we want to do here is create a hash with all the place info, a hash with the airline info, and airport info
+
       places.each do |place|
         #find the name of the outboundleg's origin city through OriginId
         if quote["OutboundLeg"]["OriginId"] == place["PlaceId"]
@@ -64,6 +66,7 @@ class FlightsController < ApplicationController
           quote["InboundLeg"]["DestinationAirport"] = place["Name"]
         end
       end
+
       #find the carriers for the quote's flights
       carriers.each do |carrier|
         quote["OutboundLeg"]["CarrierIds"].each do |car|
