@@ -1,7 +1,8 @@
 class Itinerary < ApplicationRecord
-  belongs_to :departing_flight, :class_name => "Flight"
-  belongs_to :return_flight, :class_name => "Flight"
+  # belongs_to :departing_flight, :class_name => "Flight"
+  # belongs_to :return_flight, :class_name => "Flight"
   belongs_to :user
+  belongs_to :quote
 
   def total_price
     self.departing_flight.price.to_i + self.return_flight.price.to_i
@@ -19,9 +20,8 @@ class Itinerary < ApplicationRecord
     self.departing_flight.departure_date
   end
 
-  def return_date  
+  def return_date
     self.return_flight.arrival_date
   end
 
 end
-

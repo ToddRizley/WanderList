@@ -10,40 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160718003830) do
+ActiveRecord::Schema.define(version: 20160907181320) do
+
+  create_table "airlines", force: :cascade do |t|
+    t.string  "name"
+    t.integer "carrier_ref"
+  end
 
   create_table "airports", force: :cascade do |t|
     t.string   "name"
-    t.integer  "city_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "cities", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
+    t.integer  "airport_ref"
+    t.integer  "location_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
-  create_table "flights", force: :cascade do |t|
-    t.string   "airline"
+  create_table "itineraries", force: :cascade do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "quote_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string   "city_name"
+    t.integer  "city_ref"
+    t.string   "country_name"
+    t.integer  "country_ref"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "quotes", force: :cascade do |t|
+    t.string   "departure_carrier"
     t.string   "flight_number"
     t.date     "departure_date"
-    t.date     "arrival_date"
+    t.date     "return_date"
     t.float    "price"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.integer  "departure_airport_id"
     t.integer  "arrival_airport_id"
-  end
-
-  create_table "itineraries", force: :cascade do |t|
-    t.integer  "user_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
-    t.integer  "departing_flight_id"
-    t.integer  "return_flight_id"
+    t.string   "return_carrier"
   end
 
   create_table "users", force: :cascade do |t|
