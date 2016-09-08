@@ -14,6 +14,7 @@ class QuotesController < ApplicationController
     @user.budget= params["user"]["budget"].to_f
     @user.departure = params["user"]["departure"].to_s
     @user.return = params["user"]["return"].to_s
+    @user.save
 
     #find Skyscanner code for city input
     city = params['user']['city'].split(" ").join("%20")
@@ -52,7 +53,7 @@ class QuotesController < ApplicationController
             airport = Airport.find_or_create_by(name: place["Name"], location_id: location.id)
             quote["OutboundLeg"]["OriginCity"] = location.city_name
             quote["OutboundLeg"]["OriginAirport"] = airport.name
-            quote["OutboundLeg"]["OriginCountry"] = location.country_name 
+            quote["OutboundLeg"]["OriginCountry"] = location.country_name
           end
         end
       end
@@ -68,7 +69,7 @@ class QuotesController < ApplicationController
             location = Location.create(city_ref: place["PlaceId"], city_name: place["CityName"], country_name: place["CountryName"])
             airport = Airport.find_or_create_by(name: place["Name"], location_id: location.id)
             quote["OutboundLeg"]["DestinationCity"] = location.city_name
-            quote["OutboundLeg"]["DestinationAirport"] = airport.name 
+            quote["OutboundLeg"]["DestinationAirport"] = airport.name
             quote["OutboundLeg"]["DestinationCountry"] = location.country_name
           end
         end
@@ -84,7 +85,7 @@ class QuotesController < ApplicationController
             location = Location.create(city_ref: place["PlaceId"], city_name: place["CityName"])
             airport = Airport.find_or_create_by(name: place["Name"], location_id: location.id)
             quote["InboundLeg"]["OriginCity"] = location.city_name
-            quote["InboundLeg"]["OriginAirport"] = airport.name 
+            quote["InboundLeg"]["OriginAirport"] = airport.name
           end
         end
       end
@@ -99,7 +100,7 @@ class QuotesController < ApplicationController
             location = Location.create(city_ref: place["PlaceId"], city_name: place["CityName"])
             airport = Airport.find_or_create_by(name: place["Name"], location_id: location.id)
             quote["InboundLeg"]["DestinationCity"] = location.city_name
-            quote["InboundLeg"]["DestinationAirport"] = airport.name 
+            quote["InboundLeg"]["DestinationAirport"] = airport.name
           end
         end
       end
