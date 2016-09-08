@@ -15,11 +15,17 @@ class QuotesController < ApplicationController
     @user.departure = params["user"]["departure"].to_s
     @user.return = params["user"]["return"].to_s
     @user.save
-    all quotes = Services::FlightAdapter.get_quotes(param['user']['city'], params['user']["departure"],params['user']["return"]  )
+    all_quotes = Services::FlightAdapter.new.get_quotes(params['user']['city'], params['user']["departure"], params['user']["return"]  )
+    sorted_quotes = Quote.sort_by_price(all_quotes)
+    quotes_within_budget = Quote.within_budget?(sorted_quotes, @user)
 
-    sorted_quotes = all_quotes['Quotes'].sort_by{ |t| t["MinPrice"] }
-    #parse for flights that fall within the user's budget, limit to 6
-    quotes_within_budget = sorted_quotes.select{|quote| quote['MinPrice'] <= @user.budget}.slice(0..5)
+    binding.pry
+
+    # carriers = all_quotes['Carriers']
+    # places = all_quotes['Places']
+
+
+
     #match placeids and carrier ids from API output
     @parsed_quotes = quotes_within_budget.each do |quote|
     ####so what we want to do here is create a hash with all the place info, a hash with the airline info, and airport info
