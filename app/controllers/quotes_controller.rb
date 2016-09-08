@@ -15,26 +15,8 @@ class QuotesController < ApplicationController
     @user.departure = params["user"]["departure"].to_s
     @user.return = params["user"]["return"].to_s
     @user.save
+    all quotes = Services::FlightAdapter.get_quotes(param['user']['city'], params['user']["departure"],params['user']["return"]  )
 
-    #find Skyscanner code for city input
-    city = params['user']['city'].split(" ").join("%20")
-    base_city_url = 'http://partners.api.skyscanner.net/apiservices/autosuggest/v1.0/US/USD/en-US?query='
-    api_key = 'apiKey=em955043112889172537423239168314'
-    city_code_response = HTTParty.get(base_city_url+city+'&'+api_key)
-    sky_scanner_city_code = city_code_response['Places'][0]['PlaceId']
-
-    #convert date inputs into format for Skyscanner API
-    date_dep = params['user']["departure"].split('/')
-    date_adapt_dep =  [date_dep[2],date_dep[0],date_dep[1]].join("-")
-    date_ret = params['user']["return"].split('/')
-    date_adapt_ret= [date_ret[2],date_ret[0],date_ret[1]].join("-")
-
-    #find all flights with given city, and dates, sorted from min to max
-    base_quote_url = 'http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/'
-    departing_city = sky_scanner_city_code +'/'
-    all_quotes = HTTParty.get(base_quote_url+departing_city+'anywhere/'+date_adapt_dep+'/'+date_adapt_ret+'?'+ api_key)
-    carriers = all_quotes['Carriers']
-    places = all_quotes['Places']
     sorted_quotes = all_quotes['Quotes'].sort_by{ |t| t["MinPrice"] }
     #parse for flights that fall within the user's budget, limit to 6
     quotes_within_budget = sorted_quotes.select{|quote| quote['MinPrice'] <= @user.budget}.slice(0..5)
