@@ -2,17 +2,17 @@
 <h3> Saved Trips <h3>
 <div class= "container-fluid">
  <div class="row">
-  <% @user.itineraries.each do |package| %>
+  <% @user.quotes.each do |package| %>
       <div class="col-md-6">
         <div class="whitebox">
-           <% featuredimage= Unsplash::Photo.search(package.arrival_city, page = 1, per_page = 1) %>
-            <img src= <%= featuredimage[0].urls["small"] + "/download" %> >
             <div class= "p1">
-              From: <%= package.departure_city %> <br>
               Departure Date: <%= package.departure_date %><br>
-              To: <%= package.arrival_city %><br>
+              Outbound Carrier: <%= package.outbound_carrier %><br>
+              Destination: <%= package.destination %>, <%= package.destination_country %><br>
+              Destination Country: <br>
               Return Date: <%=package.return_date %><br>
-              Price: $<%= package.total_price %><br>
+              Return Carrier: <%=package.return_carrier %><br>
+              Price: $<%= package.price %><br>
             </div>
           </div>
         </div>

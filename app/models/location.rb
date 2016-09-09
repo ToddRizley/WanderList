@@ -1,5 +1,6 @@
 class Location < ApplicationRecord
   has_many :airports
+  validates :city_ref, uniqueness: true
   #all departures stemming from a city
   def departures
     self.airports.map {|airport| airport.departures}.flatten

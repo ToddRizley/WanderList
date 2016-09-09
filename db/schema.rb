@@ -42,16 +42,15 @@ ActiveRecord::Schema.define(version: 20160907181320) do
   end
 
   create_table "quotes", force: :cascade do |t|
-    t.string   "departure_carrier"
-    t.string   "flight_number"
+    t.string   "destination"
+    t.string   "destination_country"
     t.date     "departure_date"
+    t.string   "outbound_carrier"
     t.date     "return_date"
-    t.float    "price"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-    t.integer  "departure_airport_id"
-    t.integer  "arrival_airport_id"
     t.string   "return_carrier"
+    t.float    "price"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "users", force: :cascade do |t|
