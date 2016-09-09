@@ -9,11 +9,11 @@
               Departure Date: <%= package.departure_date %><br>
               Outbound Carrier: <%= package.outbound_carrier %><br>
               Destination: <%= package.destination %>, <%= package.destination_country %><br>
-              Destination Country: <br>
               Return Date: <%=package.return_date %><br>
               Return Carrier: <%=package.return_carrier %><br>
               Price: $<%= package.price %><br>
             </div>
+            <%= link_to "Delete Trip", delete_user_quote_path({quote_id: "#{package.id}"}), class: "btn btn-primary center-block", method: "delete" %>
           </div>
         </div>
      <% end %>

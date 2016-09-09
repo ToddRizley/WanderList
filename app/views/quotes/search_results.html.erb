@@ -1,6 +1,6 @@
 <div class= "container-fluid">
-<% @parsed_quotes.each_with_index do |quotes, index| %>
-  <h1> <%= "Package #{index+1}" %>  </h1>
-  <%= render partial: "partials/quote", object: quotes %>
-<%end%> 
+  <% @parsed_quotes.each_with_index do |quotes, index| %>
+    <h1> <%= "Package #{index+1}" %>  </h1>
+    <%= render partial: "partials/quote", object: quotes %>
+  <%end%>
 </div>

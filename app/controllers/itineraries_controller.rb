@@ -4,10 +4,18 @@ class ItinerariesController < ApplicationController
   end
 
   def create
-    byebug
     @quote = Quote.create(quote_params)
     @user = User.find(session[:user_id])
-    @itinerary = Itinerary.create(user_id: @user.id, quote_id: @quote.id) 
+    @itinerary = Itinerary.create(user_id: @user.id, quote_id: @quote.id)
+    redirect_to "/users/#{@user.id}/quotes"
+  end
+
+  def destroy
+    @user = User.find(session[:user_id])
+    quote_id = params["quote_id"].to_i
+    quote = Quote.find_by(id: quote_id)
+    itinerary = Itinerary.find_by(quote_id: quote_id)
+    itinerary.destroy
     redirect_to "/users/#{@user.id}/quotes"
   end
 
