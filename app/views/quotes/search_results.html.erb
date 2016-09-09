@@ -1,35 +1,6 @@
 <div class= "container-fluid">
-  <%= form_tag({controller:"itineraries", action: "create"}, method: "post") do %>
-    <div class="row">
-      <% @parsed_quotes.each_with_index do |flight_package, index| %>
-          <div class="col-md-6">
-            <div class="whitebox">
-              <h1> <%= "Package #{index+1}" %>  </h1>
-              <div class= "p2">
-                Destination: <%= flight_package["InboundLeg"]["OriginCity"]%>, <%= flight_package["OutboundLeg"]["DestinationCountry"] %> <br>
-                <input name="quote[destination]" value= <%= flight_package["InboundLeg"]["OriginCity"]%> type="hidden" />
-                <input name="quote[destination_country]" value= <%= flight_package["OutboundLeg"]["DestinationCountry"] %> type="hidden" />
-                Departure Date: <%= flight_package["OutboundLeg"]["DepartureDate"].to_date%> <br>
-                <input name="quote[departure_date]" value= <%= flight_package["OutboundLeg"]["DepartureDate"] %> type="hidden" />
-                <% if flight_package["OutboundLeg"]["Carriers"][0] %>
-                Departure Flight Carrier: <%= flight_package["OutboundLeg"]["Carriers"][0] %> <br>
-                <input name="quote[outbound_carrier]" value= <%= flight_package["OutboundLeg"]["Carriers"][0] %> type="hidden" />
-                <% end %>
-                Return Date: <%= flight_package["InboundLeg"]["DepartureDate"].to_date%><br>
-                <input name="quote[return_date]" value= <%= flight_package["InboundLeg"]["DepartureDate"] %> type="hidden" />
-                <% if flight_package["InboundLeg"]["Carriers"][0] %>
-                Return Flight Carrier: <%= flight_package["InboundLeg"]["Carriers"][0] %><br>
-                <input name="quote[return_carrier]" value= <%= flight_package["InboundLeg"]["Carriers"][0] %> type="hidden" />
-                <% end %>
-                Price : <%=  flight_package["MinPrice"]%>
-                <input name="quote[price]" value= <%= flight_package["MinPrice"] %> type="hidden" />
-              </div>
-              <%= submit_tag ("Save flight")%>
-              </div>
-          </div>
-      <%end%>
-    </div>
-    <br>
-    <br>
-  <% end %>
-  </div>
+<% @parsed_quotes.each_with_index do |quotes, index| %>
+  <h1> <%= "Package #{index+1}" %>  </h1>
+  <%= render partial: "partials/quote", object: quotes %>
+<%end%> 
+</div>
