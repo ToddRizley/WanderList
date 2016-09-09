@@ -1,28 +1,25 @@
 <%= form_tag({controller:"itineraries", action: "create"}, method: "post") do %>
-<div class="row">
-  <div class="col-md-6">
-    <div class="whitebox">
-      <div class= "p2">
-        Destination: <%= quote["InboundLeg"]["OriginCity"]%>, <%= quote["OutboundLeg"]["DestinationCountry"] %> <br>
-        <input name="quote[destination]" value="<%= quote["InboundLeg"]["OriginCity"] %>" type="hidden" />
-        <input name="quote[destination_country]" value= "<%= quote["OutboundLeg"]["DestinationCountry"] %>" type="hidden" />
-        Departure Date: <%= quote["OutboundLeg"]["DepartureDate"].to_date%> <br>
-        <input name="quote[departure_date]" value= "<%= quote["OutboundLeg"]["DepartureDate"] %>" type="hidden" />
-        <% if quote["OutboundLeg"]["Carriers"][0] %>
+    Destination: <%= quote["InboundLeg"]["OriginCity"]%>, <%= quote["OutboundLeg"]["DestinationCountry"] %> <br>
+    <%= hidden_field_tag 'quote[destination]', quote["InboundLeg"]["OriginCity"] %>
+    <%= hidden_field_tag 'quote[destination_country]', quote["OutboundLeg"]["DestinationCountry"] %>
+
+    Departure Date: <%= quote["OutboundLeg"]["DepartureDate"].to_date%> <br>
+    <%= hidden_field_tag "quote[departure_date]", quote["OutboundLeg"]["DepartureDate"] %>
+
+    <% if quote["OutboundLeg"]["Carriers"][0] %>
         Departure Flight Carrier: <%= quote["OutboundLeg"]["Carriers"][0] %> <br>
-        <input name="quote[outbound_carrier]" value= "<%= quote["OutboundLeg"]["Carriers"][0] %>" type="hidden" />
-        <% end %>
-        Return Date: <%= quote["InboundLeg"]["DepartureDate"].to_date%><br>
-        <input name="quote[return_date]" value= "<%= quote["InboundLeg"]["DepartureDate"] %>" type="hidden" />
-        <% if quote["InboundLeg"]["Carriers"][0] %>
-        Return Flight Carrier: <%= quote["InboundLeg"]["Carriers"][0] %><br>
-        <input name="quote[return_carrier]" value= "<%= quote["InboundLeg"]["Carriers"][0] %>" type="hidden" />
-        <% end %>
-        Price : <%=  quote["MinPrice"]%>
-        <input name="quote[price]" value= "<%= quote["MinPrice"] %>" type="hidden" />
-      </div>
-      <%= submit_tag("Save flight")%>
+        <%= hidden_field_tag "quote[outbound_carrier]", quote["OutboundLeg"]["Carriers"][0] %>
     <% end %>
-    </div>
-  </div>
-</div>
+
+    Return Date: <%= quote["InboundLeg"]["DepartureDate"].to_date%><br>
+    <%= hidden_field_tag "quote[return_date]", quote["InboundLeg"]["DepartureDate"] %>
+
+    <% if quote["InboundLeg"]["Carriers"][0] %>
+        Return Flight Carrier: <%= quote["InboundLeg"]["Carriers"][0] %><br>
+        <%= hidden_field_tag "quote[return_carrier]", quote["InboundLeg"]["Carriers"][0] %>
+    <% end %>
+
+    Price : <%=  quote["MinPrice"]%>
+    <%= hidden_field_tag "quote[price]", quote["MinPrice"] %>
+    <%= submit_tag("Save flight")%>
+<% end %>
