@@ -11,6 +11,8 @@ class QuotesController < ApplicationController
     @user.departure = params["user"]["departure"].to_s
     @user.return = params["user"]["return"].to_s
     @user.save
+    #store 10-12 into a big quotes service object? user may not be necessary line 9/13.
+    #Which can potentially be used in FlightAdapter as an arg?
     all_quotes = Services::FlightAdapter.new.get_quotes(params['user']['city'], params['user']["departure"], params['user']["return"])
     sorted_quotes = Quote.sort_by_price(all_quotes)
     quotes_within_budget = Quote.within_budget?(sorted_quotes, @user)

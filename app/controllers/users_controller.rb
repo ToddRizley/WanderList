@@ -21,7 +21,7 @@ class UsersController < ApplicationController
     @user = User.find(@user.id)
   end
 
-  def flights
+  def quotes
     @user = User.find(session[:user_id])
   end
 
