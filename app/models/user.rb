@@ -13,6 +13,9 @@ class User < ApplicationRecord
   validates :password, length: { minimum: 4 }
   validate :name_is_alpha_num?
 
+  validate :dates_valid?
+  validate :budget_valid?
+
   def name_is_alpha_num?
     if !self.name.match(/^[[:alnum:]]+$/)
       errors.add(:name, "may only be alphanumeric characters")
