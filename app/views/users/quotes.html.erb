@@ -1,7 +1,15 @@
 <div class= "container-fluid">
-  <h1> <%= @user.name %>'s WanderList Trips </h1>
-  <% @user.quotes.each_with_index do |itineraries, index| %>
-    <h1> <%= "Trip #{index+1}" %>  </h1>
-    <%= render partial: "partials/itinerary", object: itineraries %>
-  <%end%>
+  <div class="row">
+    <h1> <%= @user.name %>'s WanderList Trips </h1>
+    <% @user.quotes.each_with_index do |itineraries, index| %>
+      <div class="col-md-6">
+        <div class="whitebox">
+          <div class= "p2">
+            <h1> <%= "Trip #{index+1}" %>  </h1>
+            <%= render partial: "partials/itinerary", object: itineraries %>
+          </div>
+        </div>
+      </div>
+    <%end%>
+  </div>
 </div>

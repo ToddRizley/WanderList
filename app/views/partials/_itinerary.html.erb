@@ -1,15 +1,8 @@
-<div class="row">
-  <div class="col-md-6">
-    <div class="whitebox">
-      <div class= "p2">
-        Destination: <%= itinerary.destination %>, <%= itinerary.destination_country %> <br>
-        Departure Date: <%= itinerary.departure_date %> <br>
-        Departure Flight Carrier: <%= itinerary.outbound_carrier %> <br>
-        Return Date: <%= itinerary.return_date %><br>
-        Return Flight Carrier: <%= itinerary.return_carrier %><br>
-        Price: <%=  itinerary.price%>
-      </div>
-      <%= link_to "Delete Trip", delete_user_quote_path({quote_id: "#{itinerary.id}"}), class: "btn btn-primary center-block", method: "delete" %>
-    </div>
-  </div>
-</div>
+<h4> Destination: <%= itinerary.destination %>, <%= itinerary.destination_country %> </h4>
+Departure Date: <%= itinerary.departure_date %> <br>
+Departure Flight Carrier: <%= itinerary.outbound_carrier %> <br>
+Return Date: <%= itinerary.return_date %><br>
+Return Flight Carrier: <%= itinerary.return_carrier %><br>
+Price: <%=  itinerary.price%><br></br>
+<%= link_to "Delete Trip", delete_user_quote_path({quote_id: "#{itinerary.id}"}), class: "btn btn-primary center-block", method: "delete" %>
+ 
