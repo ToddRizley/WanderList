@@ -4,22 +4,22 @@
     <div class="whitebox">
       <div class= "p2">
         Destination: <%= quote["InboundLeg"]["OriginCity"]%>, <%= quote["OutboundLeg"]["DestinationCountry"] %> <br>
-        <input name="quote[destination]" value= <%= quote["InboundLeg"]["OriginCity"]%> type="hidden" />
-        <input name="quote[destination_country]" value= <%= quote["OutboundLeg"]["DestinationCountry"] %> type="hidden" />
+        <input name="quote[destination]" value="<%= quote["InboundLeg"]["OriginCity"] %>" type="hidden" />
+        <input name="quote[destination_country]" value= "<%= quote["OutboundLeg"]["DestinationCountry"] %>" type="hidden" />
         Departure Date: <%= quote["OutboundLeg"]["DepartureDate"].to_date%> <br>
-        <input name="quote[departure_date]" value= <%= quote["OutboundLeg"]["DepartureDate"] %> type="hidden" />
+        <input name="quote[departure_date]" value= "<%= quote["OutboundLeg"]["DepartureDate"] %>" type="hidden" />
         <% if quote["OutboundLeg"]["Carriers"][0] %>
         Departure Flight Carrier: <%= quote["OutboundLeg"]["Carriers"][0] %> <br>
-        <input name="quote[outbound_carrier]" value= <%= quote["OutboundLeg"]["Carriers"][0] %> type="hidden" />
+        <input name="quote[outbound_carrier]" value= "<%= quote["OutboundLeg"]["Carriers"][0] %>" type="hidden" />
         <% end %>
         Return Date: <%= quote["InboundLeg"]["DepartureDate"].to_date%><br>
-        <input name="quote[return_date]" value= <%= quote["InboundLeg"]["DepartureDate"] %> type="hidden" />
+        <input name="quote[return_date]" value= "<%= quote["InboundLeg"]["DepartureDate"] %>" type="hidden" />
         <% if quote["InboundLeg"]["Carriers"][0] %>
         Return Flight Carrier: <%= quote["InboundLeg"]["Carriers"][0] %><br>
-        <input name="quote[return_carrier]" value= <%= quote["InboundLeg"]["Carriers"][0] %> type="hidden" />
+        <input name="quote[return_carrier]" value= "<%= quote["InboundLeg"]["Carriers"][0] %>" type="hidden" />
         <% end %>
         Price : <%=  quote["MinPrice"]%>
-        <input name="quote[price]" value= <%= quote["MinPrice"] %> type="hidden" />
+        <input name="quote[price]" value= "<%= quote["MinPrice"] %>" type="hidden" />
       </div>
       <%= submit_tag("Save flight")%>
     <% end %>
