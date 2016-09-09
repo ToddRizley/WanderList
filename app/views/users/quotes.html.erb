@@ -1,21 +1,7 @@
-<h1> <%= @user.name %>'s WanderList Trips </h1>
-<h3> Saved Trips <h3>
 <div class= "container-fluid">
- <div class="row">
-  <% @user.quotes.each do |package| %>
-      <div class="col-md-6">
-        <div class="whitebox">
-            <div class= "p1">
-              Departure Date: <%= package.departure_date %><br>
-              Outbound Carrier: <%= package.outbound_carrier %><br>
-              Destination: <%= package.destination %>, <%= package.destination_country %><br>
-              Return Date: <%=package.return_date %><br>
-              Return Carrier: <%=package.return_carrier %><br>
-              Price: $<%= package.price %><br>
-            </div>
-            <%= link_to "Delete Trip", delete_user_quote_path({quote_id: "#{package.id}"}), class: "btn btn-primary center-block", method: "delete" %>
-          </div>
-        </div>
-     <% end %>
-  </div>
+  <h1> <%= @user.name %>'s WanderList Trips </h1>
+  <% @user.quotes.each_with_index do |itineraries, index| %>
+    <h1> <%= "Trip #{index+1}" %>  </h1>
+    <%= render partial: "partials/itinerary", object: itineraries %>
+  <%end%>
 </div>
