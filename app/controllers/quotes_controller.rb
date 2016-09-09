@@ -6,118 +6,15 @@ class QuotesController < ApplicationController
   end
 
   def find_flights
-    #API GET REQUESTS
-    # http://partners.api.skyscanner.net/apiservices/autosuggest/v1.0/US/USD/en-US?query=new%20york%20city&apiKey=em955043112889172537423239168314
-    # http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/LAX-sky/anywhere/2016-09-03/2016-09-07?apiKey=em955043112889172537423239168314
     @user = User.find(session[:user_id])
-    #persisted data to user model
     @user.budget= params["user"]["budget"].to_f
     @user.departure = params["user"]["departure"].to_s
     @user.return = params["user"]["return"].to_s
     @user.save
-    all_quotes = Services::FlightAdapter.new.get_quotes(params['user']['city'], params['user']["departure"], params['user']["return"]  )
+    all_quotes = Services::FlightAdapter.new.get_quotes(params['user']['city'], params['user']["departure"], params['user']["return"])
     sorted_quotes = Quote.sort_by_price(all_quotes)
     quotes_within_budget = Quote.within_budget?(sorted_quotes, @user)
-
-    binding.pry
-
-    # carriers = all_quotes['Carriers']
-    # places = all_quotes['Places']
-
-
-
-    #match placeids and carrier ids from API output
-    @parsed_quotes = quotes_within_budget.each do |quote|
-    ####so what we want to do here is create a hash with all the place info, a hash with the airline info, and airport info
-      if Location.find_by(city_ref: quote["OutboundLeg"]["OriginId"])
-        location = Location.find_by(city_ref: quote["OutboundLeg"]["OriginId"])
-        quote["OutboundLeg"]["OriginCity"] = location.city_name
-        quote["OutboundLeg"]["OriginCountry"] = location.country_name
-      else
-        places.each do |place|
-        #find the name of the outboundleg's origin city through OriginId
-          if quote["OutboundLeg"]["OriginId"] == place["PlaceId"]
-            location = Location.create(city_ref: place["PlaceId"], city_name: place["CityName"], country_name: place["CountryName"])
-            airport = Airport.find_or_create_by(name: place["Name"], location_id: location.id)
-            quote["OutboundLeg"]["OriginCity"] = location.city_name
-            quote["OutboundLeg"]["OriginAirport"] = airport.name
-            quote["OutboundLeg"]["OriginCountry"] = location.country_name
-          end
-        end
-      end
-
-      if Location.find_by(city_ref: quote["OutboundLeg"]["DestinationId"])
-        location = Location.find_by(city_ref: quote["OutboundLeg"]["DestinationId"])
-        quote["OutboundLeg"]["DestinationCity"] = location.city_name
-        quote["OutboundLeg"]["DestinationCountry"] = location.country_name
-      else
-        places.each do |place|
-        #find the name of the outboundleg's origin city through OriginId
-          if quote["OutboundLeg"]["DestinationId"] == place["PlaceId"]
-            location = Location.create(city_ref: place["PlaceId"], city_name: place["CityName"], country_name: place["CountryName"])
-            airport = Airport.find_or_create_by(name: place["Name"], location_id: location.id)
-            quote["OutboundLeg"]["DestinationCity"] = location.city_name
-            quote["OutboundLeg"]["DestinationAirport"] = airport.name
-            quote["OutboundLeg"]["DestinationCountry"] = location.country_name
-          end
-        end
-      end
-
-      if Location.find_by(city_ref: quote["InboundLeg"]["OriginId"])
-        location = Location.find_by(city_ref: quote["InboundLeg"]["OriginId"])
-        quote["InboundLeg"]["OriginCity"] = location.city_name
-      else
-        places.each do |place|
-        #find the name of the outboundleg's origin city through OriginId
-          if quote["InboundLeg"]["OriginId"] == place["PlaceId"]
-            location = Location.create(city_ref: place["PlaceId"], city_name: place["CityName"])
-            airport = Airport.find_or_create_by(name: place["Name"], location_id: location.id)
-            quote["InboundLeg"]["OriginCity"] = location.city_name
-            quote["InboundLeg"]["OriginAirport"] = airport.name
-          end
-        end
-      end
-
-      if Location.find_by(city_ref: quote["InboundLeg"]["DestinationId"])
-        location = Location.find_by(city_ref: quote["InboundLeg"]["DestinationId"])
-        quote["InboundLeg"]["DestinationCity"] = location.city_name
-      else
-        places.each do |place|
-        #find the name of the outboundleg's origin city through OriginId
-          if quote["InboundLeg"]["DestinationId"] == place["PlaceId"]
-            location = Location.create(city_ref: place["PlaceId"], city_name: place["CityName"])
-            airport = Airport.find_or_create_by(name: place["Name"], location_id: location.id)
-            quote["InboundLeg"]["DestinationCity"] = location.city_name
-            quote["InboundLeg"]["DestinationAirport"] = airport.name
-          end
-        end
-      end
-      #find the carriers for the quote's flights
-      carriers.each do |carrier|
-        quote["OutboundLeg"]["CarrierIds"].each do |car|
-          if car == carrier["CarrierId"]
-            quote["OutboundLeg"]["Carriers"] ||= []
-            quote["OutboundLeg"]["Carriers"] << carrier["Name"]
-          end
-        end
-
-        quote["InboundLeg"]["CarrierIds"].each do |car|
-          if  car  == carrier["CarrierId"]
-            quote["InboundLeg"]["Carriers"] ||= []
-            quote["InboundLeg"]["Carriers"] << carrier["Name"]
-          end
-        end
-      end
-    end
-     #  if @user.budget_valid? && @user.dates_valid?
-     # array of flights from input specified home city & selected departure date
-     #  firstleg=city.departures_by_date(params["user"]["departure"].to_s)
-     # array of return flights to input specified home city & return date
-     #  secondleg=city.arrivals_by_date(params["user"]["return"].to_s)
-     # returns an array of flights that FIT ALL CRITERIA
-     #  @roundtripflight = Flight.match_flights(firstleg,secondleg,@user.budget)
-     # displays results
-     #   @itinerary = Itinerary.new
+    @parsed_quotes = Quote.prepare_quotes(quotes_within_budget, all_quotes['Carriers'], all_quotes['Places'])
     render :search_results
   end
     # else
