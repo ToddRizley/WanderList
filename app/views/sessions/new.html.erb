@@ -9,7 +9,7 @@
           <%= f.text_field :username %>
           <%= f.label :password %>
           <%= f.password_field :password %>
-          <%= submit_tag 'Log In' %>
+          <%= submit_tag 'Log In', class: 'btn btn-primary center-block' %>
           <p><%= flash[:notice] %></p>
           <p>New User? <%= link_to "Sign up now!", new_user_path %></p>
         <% end %>
