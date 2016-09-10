@@ -17,5 +17,5 @@ class Airline < ApplicationRecord
     end
     quote
   end
-
+  
 end

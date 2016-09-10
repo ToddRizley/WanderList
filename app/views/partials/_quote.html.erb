@@ -19,8 +19,8 @@
         <%= hidden_field_tag "quote[return_carrier]", quote["InboundLeg"]["Carriers"][0] %>
     <% end %>
 
-    Price : <%=  quote["MinPrice"]%>
+    Price: $<%=  quote["MinPrice"]%>
     <%= hidden_field_tag "quote[price]", quote["MinPrice"] %>
-    
+
     <%= submit_tag("Save flight", class: 'btn btn-primary center-block')%>
 <% end %>
