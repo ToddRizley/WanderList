@@ -1,3 +1,5 @@
+Visit our app on Heroku! https://wanderlist-2016.herokuapp.com/
+
 Contributors:
 
 Emanuel Aharonoff - https://github.com/eaharonoff
