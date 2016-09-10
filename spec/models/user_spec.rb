@@ -24,12 +24,12 @@ describe User do
 
 
   it "it has a departure" do
-      expect(user.departure.to_s).to eq("2016-10-10")
+      expect(user.departure_flight.to_s).to eq("2016-10-10")
   end
 
 
   it "it has a return" do
-      expect(user.return.to_s).to eq("2016-11-11")
+      expect(user.return_flight.to_s).to eq("2016-11-11")
   end
 
 
@@ -40,7 +40,7 @@ describe 'methods' do
     :departure => "2016-10-10",
     :return => "2016-11-11",
     :password => "password")
-  
+
 
     nyc = City.create(name: "New York City" , description: "concrete bunghole where dreams are made up")
     mia = City.create(name: "Miami" , description: "clubs. beaches. debauchery")
@@ -72,6 +72,3 @@ describe 'methods' do
 end
 
 end
-
-
-
