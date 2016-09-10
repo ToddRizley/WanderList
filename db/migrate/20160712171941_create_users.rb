@@ -3,8 +3,8 @@ class CreateUsers < ActiveRecord::Migration[5.0]
     create_table :users do |t|
       t.string :name
       t.integer :budget
-      t.date :departure
-      t.date :return
+      t.date :departure_flight
+      t.date :return_flight
       t.timestamps
     end
   end

@@ -7,19 +7,20 @@ class QuotesController < ApplicationController
 
   def find_flights
     @user = User.find(session[:user_id])
-    @user.budget= params["user"]["budget"].to_f
-    @user.departure = params["user"]["departure"].to_s
-    @user.return = params["user"]["return"].to_s
+    departure_date = Quote.format_dates(params["user"]["departure"])
+    return_date = Quote.format_dates(params["user"]["return"])
+    @user.update(budget: params["user"]["budget"].to_f, departure_flight: departure_date, return_flight: return_date )
     if @user.dates_valid? && @user.budget_valid?
-      binding.pry
-      @user.save
-      #store 10-12 into a big quotes service object? user may not be necessary line 9/13.
-      #Which can potentially be used in FlightAdapter as an arg?
       all_quotes = Services::FlightAdapter.new.get_quotes(params['user']['city'], params['user']["departure"], params['user']["return"])
-      sorted_quotes = Quote.sort_by_price(all_quotes)
-      quotes_within_budget = Quote.within_budget?(sorted_quotes, @user)
-      @parsed_quotes = Quote.prepare_quotes(quotes_within_budget, all_quotes['Carriers'], all_quotes['Places'])
-      render :search_results
+      if !all_quotes
+        flash.now[:notice] = "Invalid entry. Please enter valid info."
+        render 'new_trip'
+      else
+        sorted_quotes = Quote.sort_by_price(all_quotes)
+        quotes_within_budget = Quote.within_budget?(sorted_quotes, @user)
+        @parsed_quotes = Quote.prepare_quotes(quotes_within_budget, all_quotes['Carriers'], all_quotes['Places'])
+        render :search_results
+      end
     else
       flash.now[:notice] = "Invalid entry. Please enter valid info."
       render 'new_trip'
