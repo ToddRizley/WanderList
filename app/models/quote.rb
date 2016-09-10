@@ -11,9 +11,14 @@ class Quote < ApplicationRecord
     quotes['Quotes'].sort_by{ |t| t["MinPrice"] }
   end
 
+  def self.format_dates(date)
+    new_date = date.split("/")
+    [new_date[1], new_date[0], new_date[2]].join("/")
+  end
+
   def self.prepare_quotes(quotes_within_budget, carriers, places)
     quotes_within_budget.each do |quote|
-      
+
       if Location.find_by(city_ref: quote["OutboundLeg"]["OriginId"])
         Location.check_db_for_location(quote, "OutboundLeg", "OriginId", "OriginCity", "OriginCountry")
       else
