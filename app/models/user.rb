@@ -1,20 +1,14 @@
 class User < ApplicationRecord
 
   has_secure_password
-
-  has_many :user_cities
-  has_many :cities, through: :user_cities
   has_many :itineraries
   has_many :quotes, through: :itineraries
-  # has_many :departing_flights, :class_name => "Flight", through: :itineraries
-  # has_many :return_flights, :class_name => "Flight", through: :itineraries
 
   validates :name, presence: { message: "must exist" }, uniqueness: { message: "already exists"}
   validates :password, length: { minimum: 4 }
   validate :name_is_alpha_num?
-
-  validate :dates_valid?
-  validate :budget_valid?
+  # validate :dates_valid?
+  # validate :budget_valid?
 
   def name_is_alpha_num?
     if !self.name.match(/^[[:alnum:]]+$/)
