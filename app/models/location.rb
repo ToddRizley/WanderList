@@ -1,7 +1,6 @@
 class Location < ApplicationRecord
   has_many :airports
   validates :city_ref, uniqueness: true
-  #validation to make sure a location does not get duplicated
 
   def self.check_db_for_location(quote, leg, placeid, dir_city, dir_country)
       location = Location.find_by(city_ref: quote[leg][placeid])
@@ -38,6 +37,5 @@ class Location < ApplicationRecord
         array[midpoint]
       end
   end
-
 
 end

@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20160907181320) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "airlines", force: :cascade do |t|
     t.string  "name"
     t.integer "carrier_ref"
@@ -56,10 +59,10 @@ ActiveRecord::Schema.define(version: 20160907181320) do
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.integer  "budget"
-    t.date     "departure"
-    t.date     "return"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.date     "departure_flight"
+    t.date     "return_flight"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.string   "password_digest"
   end
 

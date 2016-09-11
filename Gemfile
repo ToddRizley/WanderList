@@ -7,7 +7,9 @@ gem 'bootstrap-datepicker-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'pg'
+gem 'rails_12factor'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
@@ -32,12 +34,11 @@ gem 'jbuilder', '~> 2.5'
  gem 'better_errors'
  gem 'binding_of_caller'
  gem 'bootstrap-sass', '3.3.6'
- gem 'unsplash'
  gem 'haml-rails'
 
 
 
- 
+
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -59,7 +60,7 @@ group :development, :test do
   gem 'capybara'
 
   gem 'rack_session_access'
-  
+
 end
 
 group :development do

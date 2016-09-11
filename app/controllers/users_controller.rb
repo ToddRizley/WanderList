@@ -18,18 +18,19 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(@user.id)
+    @user = User.find(session[:user_id])
+    redirect_to '/'
   end
 
   def quotes
     @user = User.find(session[:user_id])
   end
 
-  private 
+  private
 
   def user_params
     params.require(:user).permit(
-      :name, 
+      :name,
       :password
       )
   end

@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>FlatironProject1</title>
+    <title>WanderList</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"> </script>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= csrf_meta_tags %>
@@ -14,7 +16,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/">Home</a></li>
             <% if logged_in? %>
-              <li><%=link_to "My Flights", "/users/#{@current_user.id}/quotes"%></li> 
+              <li><%=link_to "My Flights", "/users/#{@current_user.id}/quotes"%></li>
               <li><%= link_to "Log out", logout_path, method: "delete" %></li>
               <li><a href="/new_trip">Book A Trip</a></li>
               <p><i><%= "#{@current_user.name} is logged into WanderList" %></i></p>

@@ -2,10 +2,11 @@ class Quote < ApplicationRecord
 
   has_many :itineraries
   has_many :users, through: :itineraries
-  
+
+
   def self.prepare_quotes(quotes_within_budget, carriers, places)
     quotes_within_budget.each do |quote|
-      
+
       if Location.find_by(city_ref: quote["OutboundLeg"]["OriginId"])
         Location.check_db_for_location(quote, "OutboundLeg", "OriginId", "OriginCity", "OriginCountry")
       else
