@@ -15,7 +15,9 @@ class QuotesController < ApplicationController
           end
         sorted_quotes = Services::QuoteSorter.new(all_quotes).sort_by_price
         budgeted_quotes = sorted_quotes.select{|quote| quote['MinPrice'] <= query_object.budget}.slice(0..5)
-        @parsed_quotes = Quote.prepare_quotes(budgeted_quotes, all_quotes['Carriers'], all_quotes['Places'])
+        quoteUpdater= Services::QuoteUpdater.new
+        @parsed_quotes = quoteUpdater.prepare_quotes(budgeted_quotes, all_quotes['Carriers'], all_quotes['Places'])
+        byebug
         render :search_results
       else
         flash.now[:notice] = "Invalid entry. Please enter a valid search."
