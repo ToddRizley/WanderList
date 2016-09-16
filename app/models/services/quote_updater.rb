@@ -1,36 +1,62 @@
 module Services
   class QuoteUpdater
+    
     def prepare_quotes(quotes, carriers, places)
       quotes.each do |quote|
-        if Location.find_by(city_ref: quote["OutboundLeg"]["OriginId"])
-          update_location(quote, "OutboundLeg", "OriginId", "OriginCity", "OriginCountry")
-        else
-          create_and_update_location(quote, places, "OriginId", "OriginAirport", "OutboundLeg", "OriginCity", "OriginCountry" )
-        end
-
-        if Location.find_by(city_ref: quote["OutboundLeg"]["DestinationId"])
-          update_location(quote, "OutboundLeg", "DestinationId", "DestinationCity", "DestinationCountry")
-        else
-          create_and_update_location(quote, places, "DestinationId", "DestinationAirport", "OutboundLeg", "DestinationCity", "DestinationCountry" )
-        end
-
-        if Location.find_by(city_ref: quote["InboundLeg"]["OriginId"])
-          update_location(quote, "InboundLeg", "OriginId", "OriginCity", "OriginCountry")
-        else
-          create_and_update_location(quote, places, "OriginId", "OriginAirport", "InboundLeg", "OriginCity", "OriginCountry" )
-        end
-
-        if Location.find_by(city_ref: quote["InboundLeg"]["DestinationId"])
-          update_location(quote, "InboundLeg", "DestinationId", "DestinationCity", "DestinationCountry")
-        else
-          create_and_update_location(quote, places, "DestinationId", "DestinationAirport", "InboundLeg", "DestinationCity", "DestinationCountry" )
-        end
-        Airline.match_airlines_in_quotes(quote, carriers)
+        update_outbound(quote,places)
+        update_inbound(quote,places)
+        update_airline(quote,carriers)
       end
     end
 
-    
     private 
+    
+    def update_airline(quote, carriers)
+      Airline.match_airlines_in_quotes(quote, carriers)
+    end
+
+    def update_inbound(quote,places)
+      update_inbound_origin(quote,places)
+      update_inbound_destination(quote,places)
+    end
+
+    def update_inbound_origin(quote,places)
+      if Location.find_by(city_ref: quote["InboundLeg"]["OriginId"])
+        update_location(quote, "InboundLeg", "OriginId", "OriginCity", "OriginCountry")
+      else
+        create_and_update_location(quote, places, "OriginId", "OriginAirport", "InboundLeg", "OriginCity", "OriginCountry" )
+      end
+    end
+
+    def update_inbound_destination(quote,places)
+      if Location.find_by(city_ref: quote["InboundLeg"]["DestinationId"])
+        update_location(quote, "InboundLeg", "DestinationId", "DestinationCity", "DestinationCountry")
+      else
+        create_and_update_location(quote, places, "DestinationId", "DestinationAirport", "InboundLeg", "DestinationCity", "DestinationCountry" )
+      end
+    end
+
+    def update_outbound(quote,places)
+      update_outbound_origin(quote,places)
+      update_outbound_destination(quote,places)
+    end
+
+    def update_outbound_origin(quote,places)
+      if Location.find_by(city_ref: quote["OutboundLeg"]["OriginId"])
+        update_location(quote, "OutboundLeg", "OriginId", "OriginCity", "OriginCountry")
+      else
+        create_and_update_location(quote, places, "OriginId", "OriginAirport", "OutboundLeg", "OriginCity", "OriginCountry" )
+      end
+    end
+
+    def update_outbound_destination(quote,places)
+      if Location.find_by(city_ref: quote["OutboundLeg"]["DestinationId"])
+        update_location(quote, "OutboundLeg", "DestinationId", "DestinationCity", "DestinationCountry")
+      else
+        create_and_update_location(quote, places, "DestinationId", "DestinationAirport", "OutboundLeg", "DestinationCity", "DestinationCountry" )
+      end
+    end
+
     def update_location(quote, leg, placeid, dir_city, dir_country)
       location = Location.find_by(city_ref: quote[leg][placeid])
       quote[leg][dir_city] = location.city_name
