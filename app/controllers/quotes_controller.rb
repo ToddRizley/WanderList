@@ -1,4 +1,3 @@
-require 'httparty'
 class QuotesController < ApplicationController
   def new_trip
     @user = User.find(session[:user_id])
