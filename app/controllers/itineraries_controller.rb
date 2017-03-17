@@ -12,15 +12,15 @@ class ItinerariesController < ApplicationController
 
   def destroy
     @user = User.find(session[:user_id])
-    quote_id = params["quote_id"].to_i
+    quote_id = params['quote_id'].to_i
     itinerary = Itinerary.find_by(quote_id: quote_id)
     itinerary.destroy
     redirect_to "/users/#{@user.id}/quotes"
   end
 
   private
-  def quote_params
-    params.require(:quote).permit(:destination,:destination_country ,:departure_date, :outbound_carrier, :return_date, :return_carrier, :price)
-  end
 
+  def quote_params
+    params.require(:quote).permit(:destination, :destination_country, :departure_date, :outbound_carrier, :return_date, :return_carrier, :price)
+  end
 end

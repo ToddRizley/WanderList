@@ -6,7 +6,7 @@
     Departure Date: <%= quote["OutboundLeg"]["DepartureDate"].to_date%> <br>
     <%= hidden_field_tag "quote[departure_date]", quote["OutboundLeg"]["DepartureDate"] %>
 
-    <% if quote["OutboundLeg"]["Carriers"][0] %>
+    <% unless quote["OutboundLeg"]["Carriers"].nil? %>
         Departure Flight Carrier: <%= quote["OutboundLeg"]["Carriers"][0] %> <br>
         <%= hidden_field_tag "quote[outbound_carrier]", quote["OutboundLeg"]["Carriers"][0] %>
     <% end %>
@@ -14,7 +14,7 @@
     Return Date: <%= quote["InboundLeg"]["DepartureDate"].to_date%><br>
     <%= hidden_field_tag "quote[return_date]", quote["InboundLeg"]["DepartureDate"] %>
 
-    <% if quote["InboundLeg"]["Carriers"][0] %>
+    <% unless quote["InboundLeg"]["Carriers"].nil? %>
         Return Flight Carrier: <%= quote["InboundLeg"]["Carriers"][0] %><br>
         <%= hidden_field_tag "quote[return_carrier]", quote["InboundLeg"]["Carriers"][0] %>
     <% end %>
