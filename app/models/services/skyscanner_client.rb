@@ -14,7 +14,7 @@ module Services
     def get_city_code(city)
       city = city.split(' ').join('%20')
       city_code_response = HTTParty.get(BASE_CITY_URL + city + '&' + API_KEY)
-      city_code_response['Places'][0] ? city_code_response['Places'][0]['PlaceId'] : false
+      city_code_response['Places'] ? city_code_response['Places'][0]['PlaceId'] : false
     end
 
     def format_dates_for_api(date)
