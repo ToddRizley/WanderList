@@ -22,7 +22,11 @@ module Services
 
     def update_inbound_origin(quote, places, city_refs)
       if city_refs.include?(quote['InboundLeg']['OriginId'])
-        update_location(quote, 'InboundLeg', 'OriginId', 'OriginCity', 'OriginCountry')
+        update_location(quote,
+                        'InboundLeg',
+                        'OriginId',
+                        'OriginCity',
+                        'OriginCountry')
       else
         create_and_update_location(quote, places, 'OriginId', 'OriginAirport', 'InboundLeg', 'OriginCity', 'OriginCountry')
       end
@@ -65,7 +69,7 @@ module Services
     end
 
     def create_and_update_location(quote, places, placeid, airport, leg, dir_city, dir_country)
-      city_object = search(quote, places, leg, placeid, 'PlaceId')
+      city_object = binary_search_for_city(quote, places, leg, placeid, 'PlaceId')
       location = Location.create(city_ref: city_object['PlaceId'], city_name: city_object['CityName'], country_name: city_object['CountryName'])
       airport = Airport.find_or_create_by(name: city_object['Name'], location_id: location.id)
       quote[leg][dir_city] = location.city_name
@@ -74,7 +78,7 @@ module Services
       quote
     end
 
-    def search(quote, array, leg, originid, placeid)
+    def binary_search_for_city(quote, array, leg, originid, placeid)
       midpoint = (array.length / 2)
       lower = array.slice(0..midpoint)
       higher = array.slice(midpoint..array.length)
@@ -83,10 +87,10 @@ module Services
         array[0]
       elsif quote[leg][originid] > array[midpoint][placeid]
 
-        search(quote, higher, leg, originid, placeid)
+        binary_search_for_city(quote, higher, leg, originid, placeid)
       elsif quote[leg][originid] < array[midpoint][placeid]
 
-        search(quote, lower, leg, originid, placeid)
+        binary_search_for_city(quote, lower, leg, originid, placeid)
       else
 
         array[midpoint]
