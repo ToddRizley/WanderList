@@ -1,64 +1,30 @@
 require 'rails_helper'
 
 describe Airport do
-  let(:new_york_city) do
-    City.create(
-      name: 'New York City',
-      description: 'concrete bunghole where dreams are made up'
-    )
+  it 'instatiates an object with a unique name' do
+    location = Location.create(city_name: 'Somewhere')
+    airport = Airport.create(name: 'TestAirport', location_id: location.id)
+    expect(airport.errors.keys.include?(:name)).to eq(false)
+    expect(Airport.where(name: 'TestAirport')).to exist
   end
-  let(:miami) do
-    City.create(
-      name: 'Miami',
-      description: 'vice vice baby'
-    )
+  it 'instatiates an object with a unique airport_ref' do
+    location = Location.create(city_name: 'Somewhere')
+    airport = Airport.create(name: 'TestAirport', location_id: location.id, airport_ref: 1234)
+    expect(airport.errors.keys.include?(:airport_ref)).to eq(false)
+    expect(Airport.where(name: 'TestAirport')).to exist
   end
-  let(:miami_international) do
-    Airport.create(name: 'Miami International',
-                   city: miami)
+  it 'does not instatiate an object with a non-unique name' do
+    location = Location.create(city_name: 'Somewhere')
+    airport = Airport.create(name: 'TestAirport', location_id: location.id, airport_ref: 1234)
+    airport2 = Airport.create(name: 'TestAirport', location_id: location.id, airport_ref: 1235)
+    expect(airport2.errors.messages.keys.include?(:name)).to eq(true)
+    expect(airport2.errors.messages[:name].include?('has already been taken')).to eq(true)
   end
-  let(:laguardia) do
-    Airport.create(
-      name: 'LaGuardia',
-      city: new_york_city
-    )
-  end
-  let(:flight1) do
-    Flight.create(
-      airline: 'JetBlue',
-      flight_number: '86E53O9',
-      departure_date: '2016-10-10',
-      arrival_date: '2016-11-11',
-      price: 500,
-      departure_airport: laguardia,
-      arrival_airport: miami_international
-    )
-  end
-  let(:flight2) do
-    Flight.create(
-      airline: 'JetBlue',
-      flight_number: '86E53O9',
-      departure_date: '2016-10-10',
-      arrival_date: '2016-11-11',
-      price: 500,
-      departure_airport: laguardia,
-      arrival_airport: miami_international
-    )
-  end
-
-  it 'has a name' do
-    expect(laguardia.name).to eq('LaGuardia')
-  end
-
-  it 'belongs to one city' do
-    expect(laguardia.city.name).to eq('New York City')
-  end
-
-  it 'has many departures through flights' do
-    expect(laguardia.departures).to include(flight1)
-  end
-
-  it 'has many arrivals through flights' do
-    expect(miami_international.arrivals).to include(flight1)
+  it 'does not instatiate an object with a non-unique airport_ref' do
+    location = Location.create(city_name: 'Somewhere')
+    airport = Airport.create(name: 'TestAirport', location_id: location.id, airport_ref: 1234)
+    airport2 = Airport.create(name: 'TestAirport2', location_id: location.id, airport_ref: 1234)
+    expect(airport2.errors.messages.keys.include?(:airport_ref)).to eq(true)
+    expect(airport2.errors.messages[:airport_ref].include?('has already been taken')).to eq(true)
   end
 end
