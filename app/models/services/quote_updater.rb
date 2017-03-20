@@ -71,9 +71,9 @@ module Services
     def create_and_update_location(quote, places, placeid, airport, leg, dir_city, dir_country)
       city_object = binary_search_for_city(quote, places, leg, placeid, 'PlaceId')
       location = Location.create(city_ref: city_object['PlaceId'], city_name: city_object['CityName'], country_name: city_object['CountryName'])
-      airport = Airport.find_or_create_by(name: city_object['Name'], location_id: location.id)
+      airport_update = Airport.find_or_create_by(name: city_object['Name'], location_id: location.id)
       quote[leg][dir_city] = location.city_name
-      quote[leg][airport] = airport.name
+      quote[leg][airport] = airport_update.name
       quote[leg][dir_country] = location.country_name
       quote
     end
