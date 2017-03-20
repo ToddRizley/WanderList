@@ -1,4 +1,6 @@
 class Airline < ApplicationRecord
+  validates :name, uniqueness: true
+  
   def self.match_airlines_in_quotes(quote, carriers)
     airline_ref_numbers = Airline.pluck(:carrier_ref)
     carriers.each do |carrier|

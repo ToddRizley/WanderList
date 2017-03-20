@@ -15,7 +15,7 @@ describe User do
     expect(@new_user.errors.messages[:messages].length).to eq(0)
   end
 
-  it '#name_is_alpha_num? returns false with invalid name' do
+  it '#name_is_alpha_num? raises errors with invalid name' do
     expect(User.where(name: 'Test!@')).to_not exist
     expect(@bad_user.errors.messages.keys.include?(:name)).to eq(true)
     expect(@bad_user.errors.messages[:name]).to eq(['may only be alphanumeric characters'])
