@@ -1,67 +1,55 @@
 require 'rails_helper'
 
 describe User do
-  let!(:user) do
-    User.create(
-      name: 'Ted',
-      budget: 1000,
-      departure: '2016-10-10',
-      return: '2016-11-11',
-      password: 'password'
-    )
+  before(:each) do
+    @new_user = User.create(name: 'Test12345', password: 'helloworld!')
+    @bad_user = User.create(name: 'Test!@')
+    @bad_user2 = User.create(name: 'Test!@', password: 'hey')
+    @bad_user3 = User.create(name: 'Test12345', password: 'helloworld!')
+    @bad_user4 = User.create(name: '', password: 'helloworld')
+  end
+  it '#name_is_alpha_num? passes with valid name' do
+    expect(User.where(name: 'Test12345')).to exist
+    expect(@new_user.name).to eq('Test12345')
+    expect(@new_user.errors.messages.keys.length).to eq(0)
+    expect(@new_user.errors.messages[:messages].length).to eq(0)
   end
 
-  it 'it has a name' do
-    expect(user.name).to eq('Ted')
+  it '#name_is_alpha_num? returns false with invalid name' do
+    expect(User.where(name: 'Test!@')).to_not exist
+    expect(@bad_user.errors.messages.keys.include?(:name)).to eq(true)
+    expect(@bad_user.errors.messages[:name]).to eq(['may only be alphanumeric characters'])
   end
 
-  it 'it has a budget' do
-    expect(user.budget).to eq(1000)
+  it 'instatiates an object with valid password' do
+    expect(@new_user.errors.keys.include?(:password)).to eq(false)
+    expect(User.where(name: 'Test12345')).to exist
+  end
+  it 'does not instatiate an object with no password' do
+    expect(User.where(name: 'Test!@')).to_not exist
+    expect(@bad_user.errors.keys.include?(:password)).to eq(true)
+    expect(@bad_user.errors.messages[:password]).to eq(["can't be blank", 'is too short (minimum is 4 characters)'])
   end
 
-  it 'it has a departure' do
-    expect(user.departure_flight.to_s).to eq('2016-10-10')
+  it 'does not instatiate an object with too short a password' do
+    expect(User.where(name: 'Test!@')).to_not exist
+    expect(@bad_user2.errors.keys.include?(:password)).to eq(true)
+    expect(@bad_user2.errors.messages[:password]).to eq(['is too short (minimum is 4 characters)'])
+  end
+  it 'instatiates an object with valid name' do
+    expect(User.where(name: 'Test12345')).to exist
+    expect(@new_user.name).to eq('Test12345')
+    expect(@new_user.errors.keys.include?(:name)).to eq(false)
   end
 
-  it 'it has a return' do
-    expect(user.return_flight.to_s).to eq('2016-11-11')
+  it 'does not instatiate an object with non-unique name' do
+    expect(User.where(name: 'Test!@')).to_not exist
+    expect(@bad_user3.errors.keys.include?(:name)).to eq(true)
+    expect(@bad_user3.errors.messages[:name]).to eq(['already exists'])
   end
-
-  # describe 'methods' do
-  #     user = User.create(
-  #     :name => "Doc Brown",
-  #     :budget => 1000,
-  #     :departure => "2016-10-10",
-  #     :return => "2016-11-11",
-  #     :password => "password")
-  #
-  #
-  #     nyc = City.create(name: "New York City" , description: "concrete bunghole where dreams are made up")
-  #     mia = City.create(name: "Miami" , description: "clubs. beaches. debauchery")
-  #
-  #     jfk = Airport.create(name: "JFK International", city: nyc )
-  #     lga = Airport.create(name: "Laguardia International", city: nyc)
-  #     miami_int = Airport.create(name: "Miami International ", city: mia )
-  #
-  #     flight1 = Flight.create( airline: "American", flight_number: "abcd", departure_date: "2016-03-15", arrival_date: "2016-03-19", price: 200, departure_airport: jfk, arrival_airport: miami_int )
-  #     flight2 = Flight.create( airline: "American", flight_number: "efgh", departure_date: '2016-03-19', arrival_date: '2016-03-19', price: 200, departure_airport: miami_int, arrival_airport: lga )
-  #     user.itineraries << Itinerary.create(user_id: user.id, departing_flight_id: flight1.id, return_flight_id: flight2.id )
-  #
-  #   it 'has many flights through itineraries' do
-  #     expect(user.itineraries.last.departing_flight_id).to eq(flight1.id)
-  #     expect(user.itineraries.last.return_flight_id).to eq(flight2.id)
-  #   end
-  #
-  #   it 'has valid travel dates' do
-  #     expect(user.dates_valid?).to eq(true)
-  #   end
-  #
-  #   it 'has a valid budget' do
-  #     expect(user.budget_valid?).to eq(true)
-  #   end
-  #
-  #   it 'has a valid username' do
-  #     expect(user.name_is_alpha_num?.nil?).to eq(false)
-  #   end
-  # end
+  it 'does not instatiate an object with no name given' do
+    expect(User.where(name: '')).to_not exist
+    expect(@bad_user4.errors.keys.include?(:name)).to eq(true)
+    expect(@bad_user4.errors.messages[:name].include?('must exist')).to eq(true)
+  end
 end
