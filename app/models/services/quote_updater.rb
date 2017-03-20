@@ -72,7 +72,7 @@ module Services
     def create_and_update_location(quote, places, placeid, airport, leg, dir_city, dir_country, airport_refs)
       city_object = binary_search_for_city(quote, places, leg, placeid, 'PlaceId')
       location = Location.create(city_ref: city_object['PlaceId'], city_name: city_object['CityName'], country_name: city_object['CountryName'])
-      airport_update = Airport.create(name: city_object['Name'], location_id: location.id, airport_ref: city_object['PlaceId']) unless airport_refs.include?(city_object['PlaceId'])
+      airport_update = airport_refs.include?(city_object['PlaceId']) ? Airport.find_by(airport_ref: city_object['PlaceId']) : Airport.create(name: city_object['Name'], location_id: location.id, airport_ref: city_object['PlaceId'])
       quote[leg][dir_city] = location.city_name
       quote[leg][airport] = airport_update.name
       quote[leg][dir_country] = location.country_name
