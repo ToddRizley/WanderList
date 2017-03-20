@@ -1,68 +1,49 @@
-# require 'rails_helper'
+require 'rails_helper'
+
+describe Airline do
+  it 'instatiates an object with a unique name' do
+    airline = Airline.create(name: 'Airline', carrier_ref: 1234)
+    expect(airline.errors.keys.include?(:name)).to eq(false)
+    expect(Airline.where(name: 'Airline')).to exist
+  end
+  it 'does not instatiate an object with a non-unique name' do
+    airline = Airline.create(name: 'Airline1', carrier_ref: 1234)
+    airline2 = Airline.create(name: 'Airline1', carrier_ref: 1235)
+    expect(airline2.errors.messages.keys.include?(:name)).to eq(true)
+    expect(airline2.errors.messages[:name].include?('has already been taken')).to eq(true)
+  end
+  it 'instatiates an object with a unique carrier_ref' do
+    airline = Airline.create(name: 'Airline', carrier_ref: 1234)
+    expect(airline.errors.keys.include?(:carrier_ref)).to eq(false)
+    expect(Airline.where(name: 'Airline')).to exist
+  end
+  it 'does not instatiate an object with a non-unique carrier_ref' do
+    airline = Airline.create(name: 'Airline1', carrier_ref: 1234)
+    airline2 = Airline.create(name: 'Airline2', carrier_ref: 1234)
+    expect(airline2.errors.messages.keys.include?(:carrier_ref)).to eq(true)
+    expect(airline2.errors.messages[:carrier_ref].include?('has already been taken')).to eq(true)
+  end
+end
+#   validates :name
+#   validates :carrier_ref
 #
-# describe City do
-#    let!(:nyc) {City.create(
-#         :name => "New York City",
-#         :description => "concrete bunghole where dreams are made up",
-#       )
-#     }
-#     let!(:mia) {City.create(
-#       :name => "Miami",
-#       :description => "vice vice baby"
-#       )
-#     }
-#     let!(:lga)  {
-#     Airport.create(name: "LaGuardia", city: nyc
-#       )
-#     }
-#     let!(:jfk)  {
-#     Airport.create(name: "JFK", city: nyc
-#       )
-#     }
-#     let!(:miami_international)  {
-#       Airport.create(name: "Miami International",
-#         city: mia
-#       )
-#     }
-#     it "it has a name" do
-#         expect(nyc.name).to eq("New York City")
+#   def self.match_airlines_in_quotes(quote, carriers)
+#     airline_ref_numbers = Airline.pluck(:carrier_ref)
+#     carriers.each do |carrier|
+#       Airline.create(name: carrier['Name'], carrier_ref: carrier['CarrierId']) unless airline_ref_numbers.include?(carrier['CarrierId'])
+#       Airline.edit_quote_carriers(quote, 'OutboundLeg', carrier)
+#       Airline.edit_quote_carriers(quote, 'InboundLeg', carrier)
 #     end
-#
-#      it "has a description" do
-#         expect(nyc.description).to eq("concrete bunghole where dreams are made up")
-#     end
-#
-#     it 'has many airports' do
-#       expect(nyc.airports).to include(lga, jfk)
-#     end
+#     quote
 #   end
-#   describe 'instance methods' do
-#     nyc = City.create(name: "New York City" , description: "concrete bunghole where dreams are made up")
-#     mia = City.create(name: "Miami" , description: "clubs. beaches. debauchery")
 #
-#     jfk = Airport.create(name: "JFK International", city: nyc )
-#     lga = Airport.create(name: "Laguardia International", city: nyc)
-#     miami_int = Airport.create(name: "Miami International ", city: mia )
-#
-#     flight1 = Flight.create( airline: "American", flight_number: "abcd", departure_date: "2016-03-15", arrival_date: "2016-03-19", price: 200, departure_airport: jfk, arrival_airport: miami_int )
-#     flight2 = Flight.create( airline: "American", flight_number: "efgh", departure_date: '2016-03-19', arrival_date: '2016-03-19', price: 200, departure_airport: lga, arrival_airport: miami_int )
-#
-#
-#       it 'returns all flights departing city' do
-#         expect(nyc.departures).to include(flight1, flight2)
+#   def self.edit_quote_carriers(quote, leg, carrier)
+#     quote[leg]['CarrierIds'].each do |car|
+#       if car == carrier['CarrierId']
+#         quote[leg]['Carriers'] ||= []
+#         quote[leg]['Carriers'] << carrier['Name']
 #       end
-#
-#       it 'returns all flights arriving in city' do
-#         expect(mia.arrivals).to include(flight1, flight2)
-#       end
-#
-#
-#       it 'returns all flights departing city for specific date' do
-#         expect(nyc.departures_by_date("03/15/2016")).to include(flight1)
-#       end
-#
-#        it 'returns all flights arriving to city for specific date' do
-#         expect(mia.arrivals_by_date("03/19/2016")).to include(flight1, flight2)
-#       end
-#
 #     end
+#     quote
+#   end
+# end
