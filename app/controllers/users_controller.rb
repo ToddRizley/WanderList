@@ -8,11 +8,6 @@ class UsersController < ApplicationController
     @user.valid? ? begin_valid_user_session : display_invalid_signup_with_errors
   end
 
-  def show
-    @user = User.find(session[:user_id])
-    redirect_to '/'
-  end
-
   def quotes
     @user = User.find(session[:user_id])
   end
