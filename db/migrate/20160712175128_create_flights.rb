@@ -5,7 +5,7 @@ class CreateFlights < ActiveRecord::Migration[5.0]
       t.string :destination_country
       t.date :departure_date
       t.string :outbound_carrier
-      t.date :return_date 
+      t.date :return_date
       t.string :return_carrier
       t.float :price
 

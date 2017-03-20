@@ -1,7 +1,7 @@
 module Services
   class SkyscannerClient
     include HTTParty
-    
+
     BASE_CITY_URL = 'http://partners.api.skyscanner.net/apiservices/autosuggest/v1.0/US/USD/en-US?query='.freeze
     BASE_QUOTE_URL = 'http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-US/'.freeze
     API_KEY = 'apiKey=to809139249893166753711041208470'.freeze
@@ -11,10 +11,10 @@ module Services
       HTTParty.get(prepped_search_url)
     end
 
-    def format_city(city)
+    def get_city_code(city)
       city = city.split(' ').join('%20')
       city_code_response = HTTParty.get(BASE_CITY_URL + city + '&' + API_KEY)
-      !city_code_response['Places'][0] ? false : city_code_response['Places'][0]['PlaceId']
+      city_code_response['Places'] ? city_code_response['Places'][0]['PlaceId'] : false
     end
 
     def format_dates_for_api(date)
@@ -23,7 +23,7 @@ module Services
     end
 
     def prep_search_url(query_object)
-      city_adapt = format_city(query_object.city) + '/'
+      city_adapt = get_city_code(query_object.city) + '/'
       date_adapt_dep = format_dates_for_api(query_object.outbound_date)
       date_adapt_ret = format_dates_for_api(query_object.inbound_date)
       search_url = BASE_QUOTE_URL + city_adapt + 'anywhere/' + date_adapt_dep + '/' + date_adapt_ret + '?' + API_KEY

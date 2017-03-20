@@ -7,7 +7,7 @@ class User < ApplicationRecord
   validate :name_is_alpha_num?
 
   def name_is_alpha_num?
-    unless name.match(/^[[:alnum:]]+$/)
+    unless name =~ /^[[:alnum:]]+$/
       errors.add(:name, 'may only be alphanumeric characters')
     end
   end
