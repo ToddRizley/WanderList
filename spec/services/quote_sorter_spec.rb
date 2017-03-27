@@ -2,7 +2,7 @@ require 'rails_helper'
 describe 'Services' do
   describe 'QuoteSorter' do
     before(:each) do
-      args = ActionController::Parameters.new('city': 'New York City', 'budget': '1000', 'outbound_date': '04/07/2017', 'inbound_date': '07/10/2017')
+      args = ActionController::Parameters.new('city': 'New York City', 'budget': '1000', 'outbound_date': '04/20/2017', 'inbound_date': '07/10/2017')
       query_object = Services::Query.new(args)
       @quotes = Services::SkyscannerClient.new.search(query_object)
       @quote_sorter = Services::QuoteSorter.new(@quotes)
