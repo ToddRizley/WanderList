@@ -28,6 +28,7 @@ describe UsersController, type: :controller do
     expect(controller.instance_variable_get(:@user).errors.messages[:name].empty?).to eq(false)
     expect(response.content_type).to eq('text/html')
     expect(User.count).to eq(1)
+    expect(controller.instance_variable_get(:@user).errors[:name].empty?).to be(false)
     expect(response.redirect?).to eq(false)
     expect(flash[:message].empty?).to be(false)
   end
